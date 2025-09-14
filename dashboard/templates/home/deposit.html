@@ -1,0 +1,230 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block title %}Deposit{% endblock %}
+
+{% block stylesheets %}
+<style>
+/* ====== DEPOSIT PAGE (matches dashboard) ====== */
+:root{
+  --bg:#0f1a23; --panel:#0e1b24; --ring:rgba(255,255,255,.12);
+  --ink:#d2a16d; --muted:#9fb0be; --text:#e9eef2; --accent:#b07131; --accent-ink:#1f1914;
+}
+.page{background:var(--bg); min-height:calc(100vh - 80px); padding:1.25rem 1rem 3rem}
+@media (min-width:992px){ .page{padding:2rem 2rem 4rem} }
+.card{background:var(--panel); border:1px solid var(--ring); border-radius:22px; padding:1.25rem; box-shadow:0 6px 18px rgba(0,0,0,.25)}
+.card--accent{background:var(--accent); color:var(--accent-ink)}
+.kicker{color:#9fb0be; letter-spacing:.18em; font-size:.8rem; font-weight:800}
+.title{color:#f4e8d8; font-weight:900; letter-spacing:.08em; margin:.2rem 0 1rem}
+.h0{font-size:2.4rem; line-height:1.05; font-weight:900; color:#fff}
+.subtle{color:var(--muted); font-weight:700}
+.grid{display:grid; gap:1rem}
+@media (min-width:992px){ .grid-2{grid-template-columns:1.05fr 1fr} }
+.input, select{
+  width:100%; background:#0a141b; border:1px solid var(--ring); color:var(--text);
+  padding:.75rem .9rem; border-radius:12px; outline:none;
+}
+label{display:block; color:#e9eef2; font-weight:700; letter-spacing:.04em; margin:.5rem 0 .35rem}
+.help{color:var(--muted); font-size:.85rem}
+
+.methods{display:grid; gap:.8rem; grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (min-width:768px){ .methods{grid-template-columns:repeat(3,1fr)} }
+.method{background:#0c171f; border:1px solid var(--ring); border-radius:16px; padding:.9rem; display:flex; align-items:center; gap:.7rem; cursor:pointer}
+.method img{height:28px; width:28px}
+.method input{margin-left:auto; height:18px; width:18px}
+.method.active{border-color:rgba(255,255,255,.28); box-shadow:0 6px 16px rgba(0,0,0,.35)}
+
+.qr{background:#0a141b; border:1px dashed var(--ring); border-radius:16px; padding:.9rem; display:grid; place-items:center}
+.addr{display:flex; gap:.6rem; align-items:center; background:#0a141b; border:1px solid var(--ring); border-radius:12px; padding:.6rem .8rem}
+.addr code{color:#e9eef2}
+.copy{cursor:pointer; padding:.35rem .6rem; border:1px solid var(--ring); border-radius:8px}
+.btn{display:inline-flex; align-items:center; gap:.5rem; border-radius:12px; padding:.75rem 1.2rem; font-weight:900; letter-spacing:.5px; cursor:pointer; border:2px solid transparent}
+.btn--solid{background:var(--accent); color:var(--accent-ink); border-color:rgba(0,0,0,.35)}
+.btn--hollow{background:transparent; color:#fff; border-color:rgba(255,255,255,.18)}
+.table{width:100%; border-collapse:separate; border-spacing:0 10px}
+.table th{color:#cfd8df; font-weight:800; text-align:left; padding:.5rem .75rem}
+.table td{background:#0a141b; border:1px solid var(--ring); color:#e9eef2; padding:.8rem .9rem}
+.table tr td:first-child{border-top-left-radius:12px; border-bottom-left-radius:12px}
+.table tr td:last-child{border-top-right-radius:12px; border-bottom-right-radius:12px}
+.toast{position:fixed; right:18px; bottom:18px; background:#11202b; color:#e9eef2; border:1px solid var(--ring); border-radius:12px; padding:.9rem 1rem; min-width:260px; box-shadow:0 8px 30px rgba(0,0,0,.35); transform:translateY(16px); opacity:0; pointer-events:none; transition:.25s ease}
+.toast.show{opacity:1; transform:translateY(0); pointer-events:auto}
+</style>
+{% endblock stylesheets %}
+
+{% block content %}
+<div class="page">
+
+  <!-- balance ribbon -->
+  <section class="card card--accent" style="margin-bottom:1rem">
+    <div class="grid grid-2">
+      <div>
+        <div class="subtle">Available Balance</div>
+        <div class="h0">{{ user.accounts.account_balance|default:"0.00" }} <span style="font-size:1.1rem">USD</span></div>
+        <div class="subtle">≈ {{ user.accounts.btc_balance_equivalent|default:"0.000000" }} BTC</div>
+      </div>
+      <div>
+        <div class="kicker">DEPOSIT</div>
+        <h3 class="title">Fund your account</h3>
+        <div class="subtle">Send crypto to the address below or use the manual form on the right.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="grid grid-2">
+    <!-- Left: methods + address -->
+    <div class="card">
+      <div class="kicker">PAYMENT METHODS</div>
+      <h3 class="title">Choose network / asset</h3>
+
+      <div class="methods" id="methodList">
+        <label class="method active">
+          <img src="{% static 'assets/img/coins/btc.png' %}" alt="btc">
+          <div>
+            <div style="color:#f4e8d8; font-weight:800">Bitcoin</div>
+            <div class="help">BTC (on Bitcoin)</div>
+          </div>
+          <input type="radio" name="m" value="BTC" checked>
+        </label>
+        <label class="method">
+          <img src="{% static 'assets/img/coins/eth.png' %}" alt="eth">
+          <div>
+            <div style="color:#f4e8d8; font-weight:800">Ethereum</div>
+            <div class="help">ETH (ERC-20)</div>
+          </div>
+          <input type="radio" name="m" value="ETH">
+        </label>
+        <label class="method">
+          <img src="{% static 'assets/img/coins/usdt.png' %}" alt="usdt">
+          <div>
+            <div style="color:#f4e8d8; font-weight:800">Tether</div>
+            <div class="help">USDT (TRC-20)</div>
+          </div>
+          <input type="radio" name="m" value="USDT">
+        </label>
+      </div>
+
+      <div style="margin-top:1rem" class="grid">
+        <div class="qr">
+          <img id="qrImg" src="{% static 'assets/img/qr/qr-btc.png' %}" alt="qr" style="height:160px;width:160px">
+        </div>
+        <div class="addr"><code id="addrVal">bc1q-example-bitcoin-address</code><span class="copy" id="copyBtn">Copy</span></div>
+        <div class="help">Only send the chosen asset to this address. Network mismatches may result in loss of funds.</div>
+      </div>
+    </div>
+
+    <!-- Right: manual deposit form -->
+    <div class="card">
+      <div class="kicker">MANUAL DEPOSIT</div>
+      <h3 class="title">Record a payment</h3>
+
+      <form method="post" enctype="multipart/form-data" id="depositForm" novalidate>
+        {% csrf_token %}
+        {% if form %}
+          {{ form.media|default:"" }}
+          {{ form.non_field_errors }}
+        {% endif %}
+
+        <label>User</label>
+        {% if form and form.investor %}{{ form.investor }}{% else %}
+          <input class="input" type="text" value="{{ request.user.username }}" disabled>
+        {% endif %}
+
+        <label>Amount (USD)</label>
+        {% if form and form.amount_in_USD %}{{ form.amount_in_USD }}{% else %}
+          <input class="input" type="number" min="20" step="10" name="amount_in_USD" id="depAmount" placeholder="e.g. 250">
+        {% endif %}
+
+        <label>Cryptocurrency</label>
+        {% if form and form.cryptocurrency %}{{ form.cryptocurrency }}{% else %}
+          <select class="input" name="cryptocurrency" id="depCoin">
+            <option value="BTC">Bitcoin (BTC)</option>
+            <option value="ETH">Ethereum (ETH)</option>
+            <option value="USDT" selected>Tether (USDT)</option>
+          </select>
+        {% endif %}
+
+        <label>Transaction Hash (optional)</label>
+        {% if form and form.tx_hash %}{{ form.tx_hash }}{% else %}
+          <input class="input" type="text" name="tx_hash" placeholder="Paste Tx hash if you have it">
+        {% endif %}
+
+        <div style="display:flex; gap:.6rem; margin-top:1rem; flex-wrap:wrap">
+          <button class="btn btn--solid" type="submit">Submit Deposit</button>
+          <a class="btn btn--hollow" href="{% url 'invest' %}">Go to Invest</a>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- history -->
+  <section class="card" style="margin-top:1.1rem">
+    <div class="kicker">PENDING CONFIRMATIONS</div>
+    <h3 class="title">Recent deposits</h3>
+    <div style="overflow:auto">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Asset</th><th>Amount</th><th>Status</th><th>Tx Hash</th><th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for d in object_list %}
+            <tr>
+              <td>{{ d.cryptocurrency|default:"—" }}</td>
+              <td>${{ d.amount_in_USD|default:d.amount|default:"0.00" }}</td>
+              <td>{{ d.status|default:d.deposit_status|default:"Pending" }}</td>
+              <td style="max-width:320px; overflow:hidden; text-overflow:ellipsis">{{ d.tx_hash|default:"—" }}</td>
+              <td>{{ d.date|default:d.created_at|default:"" }}</td>
+            </tr>
+          {% empty %}
+            <tr><td colspan="5" class="help">No deposits yet.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+<!-- toast -->
+<div id="depToast" class="toast">Copied to clipboard.</div>
+{% endblock content %}
+
+{% block javascripts %}
+<script>
+(function(){
+  const list = document.getElementById('methodList');
+  const addr = document.getElementById('addrVal');
+  const qr   = document.getElementById('qrImg');
+  const copy = document.getElementById('copyBtn');
+  const map = {
+    'BTC': {addr: 'bc1q-example-bitcoin-address', qr: "{% static 'assets/img/qr/qr-btc.png' %}"},
+    'ETH': {addr: '0xExampleEthereumAddress',     qr: "{% static 'assets/img/qr/qr-eth.png' %}"},
+    'USDT':{addr: 'TNExampleTRC20Address',        qr: "{% static 'assets/img/qr/qr-trc20.png' %}"}
+  };
+
+  list?.querySelectorAll('.method').forEach(el=>{
+    el.addEventListener('click', ()=>{
+      list.querySelectorAll('.method').forEach(m=>m.classList.remove('active'));
+      el.classList.add('active');
+      const val = el.querySelector('input').value;
+      addr.textContent = map[val].addr;
+      qr.src = map[val].qr;
+      // sync select in form if present
+      const depCoin = document.getElementById('depCoin');
+      if(depCoin){ depCoin.value = val; }
+    });
+  });
+
+  copy?.addEventListener('click', async ()=>{
+    await navigator.clipboard.writeText(addr.textContent);
+    const t = document.getElementById('depToast'); t.classList.add('show');
+    setTimeout(()=>t.classList.remove('show'), 1800);
+  });
+
+  document.getElementById('depositForm')?.addEventListener('submit', (e)=>{
+    const amt = parseFloat(document.getElementById('depAmount')?.value || '0');
+    if (!amt || amt < 20){ e.preventDefault(); alert('Minimum deposit is $20'); }
+  });
+})();
+</script>
+{% endblock javascripts %}

@@ -1,0 +1,291 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block stylesheets %}
+<style>
+  /* ====== Scoped dashboard styles (won’t leak globally) ====== */
+  :root{
+    --bg:#0f1a23;
+    --card:#b07131;         /* caramel/orange */
+    --card2:#152734;        /* blue/ink card */
+    --ink:#d2a16d;          /* warm heading */
+    --muted:#9fb0be;        /* soft label */
+    --text:#e9eef2;
+    --ring:rgba(255,255,255,.15);
+  }
+  .db-page{background:var(--bg); min-height:calc(100vh - 80px); padding:1rem 1rem 3rem}
+  @media (min-width:992px){ .db-page{padding:2rem 2rem 4rem} }
+
+  .db-topbar{display:flex; align-items:center; gap:.75rem; margin-bottom:1.25rem;}
+  .db-burger{
+    height:38px;width:38px;border-radius:50%;
+    border:2px solid var(--ink); background:transparent; color:var(--ink);
+    display:grid; place-items:center; cursor:pointer;
+  }
+  .db-top-fill{flex:1}
+  .db-lang{
+    display:flex; gap:.5rem; align-items:center;
+    background:#0a141b; border:1px solid var(--ring);
+    color:var(--muted); border-radius:10px; padding:.35rem .6rem;
+  }
+  .db-card{border-radius:24px; padding:1.25rem 1.25rem; box-shadow:0 6px 18px rgba(0,0,0,.25)}
+  .db-card--balance{background:var(--card); color:#1a1714;}
+  .db-card--stats{background:var(--card2); color:var(--text);}
+  .db-h0{font-size:2.6rem; line-height:1.05; font-weight:800; letter-spacing:.5px; color:#fff}
+  .db-h1{font-size:2.2rem; font-weight:800; color:var(--ink)}
+  .db-label{color:var(--muted); font-weight:600; letter-spacing:.5px;}
+  .db-sub{opacity:.85; color:#f0eee9;}
+  .db-actions{display:flex; gap:.75rem; margin-top:1.2rem; flex-wrap:wrap}
+  .db-btn{
+    background:transparent; border:2px solid rgba(0,0,0,.45);
+    padding:.6rem 1.4rem; border-radius:12px; font-weight:800;
+    letter-spacing:.5px; color:#1a1714; transition:.2s ease;
+  }
+  .db-btn:hover{transform:translateY(-1px); background:rgba(0,0,0,.06)}
+  .db-grid{display:grid; gap:1rem; grid-template-columns:1fr;}
+  @media (min-width:768px){ .db-grid{grid-template-columns:1.05fr 1fr} }
+  .db-rows{display:grid; gap:1rem; grid-template-columns:1fr;}
+  @media (min-width:992px){ .db-rows{grid-template-columns:1fr 1fr} }
+
+  /* Reusable panel */
+  .db-panel{background:#0e1b24; border:1px solid var(--ring); border-radius:16px; padding:1rem}
+  .db-panel h5{color:#f4e8d8; letter-spacing:.08em; font-weight:800; margin:.25rem 0 1rem}
+
+  /* ===== Capital Allocation (FIXED) ===== */
+  .alloc-grid{display:grid; gap:1rem}
+  @media (min-width:1024px){ .alloc-grid{grid-template-columns:1.2fr .8fr} }
+
+  .alloc-wrap{
+    position:relative;        /* the canvas will fill this */
+    height:300px;             /* << fixed height prevents any jump */
+    border-radius:14px;
+    background:#0b1a22;
+    border:1px solid var(--ring);
+    padding:16px;
+    overflow:hidden;
+  }
+  #allocChart{display:block; width:100% !important; height:100% !important;}
+
+  .alloc-legend{
+    background:#0b1a22; border:1px solid var(--ring);
+    border-radius:14px; padding:14px; list-style:none; margin:0;
+  }
+  .alloc-legend li{
+    display:flex; align-items:center; justify-content:space-between;
+    gap:.75rem; padding:10px 10px; border-radius:10px;
+    color:#e9eef2; border:1px solid rgba(255,255,255,.06);
+    background:rgba(255,255,255,.03);
+  }
+  .alloc-legend li + li{margin-top:.5rem}
+  .cap-dot{width:10px; height:10px; border-radius:999px; display:inline-block; margin-right:.5rem}
+
+  /* Currency list */
+  .db-legend{display:flex; flex-direction:column; gap:.35rem; margin-top:.5rem; color:#e9eef2}
+  .db-legend span{display:flex; align-items:center; gap:.6rem}
+  .dot{height:.7rem; width:.7rem; border-radius:50%}
+  .btc{background:#f2b035}
+  .eth{background:#5271ff}
+  .stc{background:#3a9e8f}
+
+  .curr-item{display:flex; align-items:center; justify-content:space-between;
+    gap:.75rem; padding:.7rem .6rem; border-radius:12px; color:#e9eef2}
+  .curr-item + .curr-item{border-top:1px dashed rgba(255,255,255,.08)}
+  .curr-l{display:flex; align-items:center; gap:.7rem;}
+  .curr-ic{height:34px; width:34px; display:grid; place-items:center; border-radius:50%;
+    background:rgba(255,255,255,.06); border:1px solid var(--ring)}
+  .curr-sym{font-weight:800; letter-spacing:.5px}
+  .curr-sub{font-size:.85rem; color:var(--muted)}
+  .curr-val{font-weight:800}
+  .curr-chg.up{color:#64d394}
+  .curr-chg.down{color:#ff7b7b}
+</style>
+{% endblock stylesheets %}
+
+{% block content %}
+<div class="db-page">
+
+  <!-- Top bar -->
+  <div class="db-topbar">
+    <button class="db-burger" id="dbToggle" title="Toggle menu">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"></circle>
+      </svg>
+    </button>
+    <div class="db-top-fill"></div>
+    <label class="db-lang">
+      <span>Lang</span>
+      <select aria-label="Select language" style="background:transparent;border:none;color:inherit;outline:none">
+        <option value="en" selected>EN</option>
+        <option value="es">ES</option><option value="fr">FR</option><option value="de">DE</option>
+      </select>
+    </label>
+    <div class="db-lang" style="gap:.4rem">
+      <img src="{% static 'assets/img/avatar-default.png' %}" alt="" style="height:24px;width:24px;border-radius:50%">
+      <span>{{ request.user.username|default:"User" }}</span>
+    </div>
+  </div>
+
+  <!-- Welcome -->
+  <div style="color:#c9d6df; font-size:1.25rem; margin:.25rem 0 1rem">
+    Welcome back, {{ request.user.first_name|default:"Lucy" }}!
+  </div>
+
+  <!-- Balance -->
+  <section class="db-card db-card--balance" style="margin-bottom:1rem">
+    <div class="db-label">Available Balance</div>
+    <div class="db-h0" style="margin:.2rem 0 .2rem">
+      {{ balance_usd|default:"36,408.21" }} <span style="font-size:1.4rem">USD</span>
+    </div>
+    <div class="db-sub">≈ {{ balance_btc|default:"0.35000261" }} BTC</div>
+
+    <div class="db-actions">
+      <a class="db-btn" href="/dashboard/plans/">INVEST</a>
+      <a class="db-btn" href="/dashboard/deposit/">DEPOSIT</a>
+      <a class="db-btn" href="/dashboard/withdraw/">WITHDRAW</a>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="db-card db-card--stats" style="margin-bottom:1rem">
+    <div class="db-rows">
+      <div>
+        <div class="db-label">Total Profit</div>
+        <div class="db-h1" style="margin-top:.25rem">{{ total_profit|default:"26,416.02" }}</div>
+      </div>
+      <div>
+        <div class="db-label">Total Deposit</div>
+        <div class="db-h1" style="margin-top:.25rem">{{ total_deposit|default:"8,050.08" }}</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Allocation + Currency balances -->
+  <section class="db-grid">
+    <!-- LEFT: Capital Allocation (fixed, no jump) -->
+    <div class="db-panel">
+      <h5>CAPITAL ALLOCATION</h5>
+
+      <div class="alloc-grid">
+        <!-- donut -->
+        <div class="alloc-wrap">
+          <canvas id="allocChart"></canvas>
+        </div>
+
+        <!-- legend (custom, not the default that appends below) -->
+        <ul id="allocLegend" class="alloc-legend"></ul>
+      </div>
+    </div>
+
+    <!-- RIGHT: Currency balances (unchanged) -->
+    <div class="db-panel">
+      <h5>CURRENCY BALANCES</h5>
+
+      <div class="curr-item">
+        <div class="curr-l">
+          <div class="curr-ic">₿</div>
+          <div>
+            <div class="curr-sym">BTC</div>
+            <div class="curr-sub">$84,000</div>
+          </div>
+        </div>
+        <div style="text-align:right">
+          <div class="curr-val">1.2456</div>
+          <div class="curr-chg up">↑ $84,000</div>
+        </div>
+      </div>
+
+      <div class="curr-item">
+        <div class="curr-l">
+          <div class="curr-ic">◆</div>
+          <div>
+            <div class="curr-sym">ETH</div>
+            <div class="curr-sub">$22,500</div>
+          </div>
+        </div>
+        <div style="text-align:right">
+          <div class="curr-val">12.58</div>
+          <div class="curr-chg down">↓ 0.5%</div>
+        </div>
+      </div>
+
+      <div class="curr-item">
+        <div class="curr-l">
+          <div class="curr-ic">T</div>
+          <div>
+            <div class="curr-sym">USDT</div>
+            <div class="curr-sub">$10,000</div>
+          </div>
+        </div>
+        <div style="text-align:right">
+          <div class="curr-val">10.000</div>
+          <div class="curr-chg up">↑ 0.1%</div>
+        </div>
+      </div>
+
+      <div class="curr-item">
+        <div class="curr-l">
+          <div class="curr-ic">◈</div>
+          <div>
+            <div class="curr-sym">ADA</div>
+            <div class="curr-sub">$2,500</div>
+          </div>
+        </div>
+        <div style="text-align:right">
+          <div class="curr-val">8.000</div>
+          <div class="curr-chg up">↑ 2.3%</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+{% endblock content %}
+
+{% block javascripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1"></script>
+<script>
+  // Sidebar toggle (compatible with Soft UI)
+  document.getElementById('dbToggle')?.addEventListener('click', () => {
+    document.body.classList.toggle('g-sidenav-pinned');
+  });
+
+  // Capital Allocation (no layout shift)
+  (function(){
+    const el = document.getElementById('allocChart');
+    if(!el) return;
+
+    // If you have dynamic values from Django, replace the arrays below:
+    const labels = ['Bitcoin','Ethereum','Stablecoins'];
+    const values = [45, 30, 15];
+    const colors = ['#D08B2F','#3862F5','#1FA386']; // gold, blue, teal
+
+    const chart = new Chart(el.getContext('2d'), {
+      type: 'doughnut',
+      data: { labels, datasets: [{ data: values, backgroundColor: colors, borderWidth:0, cutout:'62%' }]},
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,   // fill the fixed-height wrapper
+        animation: { duration: 0 },   // render instantly (prevents “slide”)
+        plugins: { legend: { display: false }, tooltip: {
+          backgroundColor:'rgba(10,20,27,.95)',
+          borderColor:'rgba(255,255,255,.12)', borderWidth:1, padding:10,
+          callbacks:{ label: ctx => `${ctx.label}: ${ctx.parsed}%` }
+        }}
+      }
+    });
+
+    // Custom legend (so nothing is added under the canvas)
+    const legend = document.getElementById('allocLegend');
+    legend.innerHTML = labels.map((label,i)=>`
+      <li>
+        <div class="flex items-center">
+          <span class="cap-dot" style="background:${colors[i]}"></span>
+          <span>${label}</span>
+        </div>
+        <strong>${values[i]}%</strong>
+      </li>
+    `).join('');
+  })();
+</script>
+{% endblock javascripts %}

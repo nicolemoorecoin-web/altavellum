@@ -1,0 +1,238 @@
+{% extends 'home/dashboard.html' %}
+{% load static %}
+{% block content %}
+      
+
+      <!-- Main Content Wrapper -->
+      <main class="main-content w-full px-[var(--margin-x)] pb-8">
+
+ 
+    <div class="flex items-center space-x-4 py-5 lg:py-6">
+          <h2 class="text-xl font-medium text-slate-800 dark:text-navy-50 lg:text-2xl">
+            Profile
+          </h2>
+          <div class="hidden h-full py-1 sm:flex">
+            <div class="h-full w-px bg-slate-300 dark:bg-navy-600"></div>
+          </div>
+          <ul class="hidden flex-wrap items-center space-x-2 sm:flex">
+            <li class="flex items-center space-x-2">
+              <a class="text-primary transition-colors hover:text-primary-focus dark:text-accent-light dark:hover:text-accent" href="https://crystal-miningtradesfx.online/user/profile.php#">User</a>
+              <svg x-ignore="" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </li>
+            <li>Profile</li>
+          </ul>
+        </div>
+
+<div class="grid grid-cols-12 gap-4 sm:gap-5 lg:gap-6">
+
+      <!-- Profile -->
+      <div class="col-span-12 lg:col-span-3">
+       <div class="card">
+            <div class="h-24 rounded-t-lg bg-primary dark:bg-accent">
+              <img class="h-full w-full rounded-t-lg object-cover object-center" src="{% static 'new/object-2.jpg' %}" alt="image">
+            </div>
+            <div class="px-4 py-2 sm:px-5">
+              <div class="flex justify-between space-x-4">
+                <div class="avatar -mt-12 h-20 w-20">
+                  <img class="rounded-full border-2 border-white dark:border-navy-700" src="{% static 'new/avatar.png' %}" alt="avatar">
+                </div>
+                <div class="flex space-x-2">
+                  <button class="btn h-7 w-7 rounded-full bg-primary/10 p-0 text-primary hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:bg-accent-light/10 dark:text-accent-light dark:hover:bg-accent-light/20 dark:focus:bg-accent-light/20 dark:active:bg-accent-light/25">
+                    <i class="fab fa-twitter"></i>
+                  </button>
+                  <button class="btn h-7 w-7 rounded-full bg-primary/10 p-0 text-primary hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:bg-accent-light/10 dark:text-accent-light dark:hover:bg-accent-light/20 dark:focus:bg-accent-light/20 dark:active:bg-accent-light/25">
+                    <i class="fab fa-instagram text-base"></i>
+                  </button>
+                  <button class="btn h-7 w-7 rounded-full bg-primary/10 p-0 text-primary hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:bg-accent-light/10 dark:text-accent-light dark:hover:bg-accent-light/20 dark:focus:bg-accent-light/20 dark:active:bg-accent-light/25">
+                    <i class="fab fa-facebook-f"></i>
+                  </button>
+                </div>
+              </div>
+              <h3 class="pt-2 text-lg font-medium text-slate-700 dark:text-navy-100">
+                {{ user.username|title }}             </h3>
+              <p class="text-xs">{{ user.email }}</p>
+              <div class="flex items-center space-x-4 pt-2">
+                <div class="w-9/12">
+                  <div class="ax-transparent-gridline" x-init="$nextTick(() =&gt; { $el._x_chart = new ApexCharts($el,pages.charts.cardUser1); $el._x_chart.render() });" style="min-height: 85px;"><div id="apexchartsl3fue5bc" class="apexcharts-canvas apexchartsl3fue5bc apexcharts-theme-light" style="width: 132px; height: 85px;"><svg id="SvgjsSvg1006" width="132" height="85" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev" class="apexcharts-svg apexcharts-zoomable" xmlns:data="ApexChartsNS" transform="translate(0, 0)" style="background: transparent;"><g id="SvgjsG1008" class="apexcharts-inner apexcharts-graphical" transform="translate(0, 10)"><defs id="SvgjsDefs1007"><clippath id="gridRectMaskl3fue5bc"><rect id="SvgjsRect1013" width="138" height="62" x="-3" y="-1" rx="0" ry="0" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fff"></rect></clippath><clippath id="forecastMaskl3fue5bc"></clippath><clippath id="nonForecastMaskl3fue5bc"></clippath><clippath id="gridRectMarkerMaskl3fue5bc"><rect id="SvgjsRect1014" width="136" height="64" x="-2" y="-2" rx="0" ry="0" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fff"></rect></clippath><lineargradient id="SvgjsLinearGradient1019" x1="0" y1="0" x2="0" y2="1"><stop id="SvgjsStop1020" stop-opacity="0.45" stop-color="rgba(99,102,241,0.45)" offset="0.2"></stop><stop id="SvgjsStop1021" stop-opacity="0.1" stop-color="rgba(255,255,255,0.1)" offset="1"></stop><stop id="SvgjsStop1022" stop-opacity="0.1" stop-color="rgba(255,255,255,0.1)" offset="1"></stop><stop id="SvgjsStop1023" stop-opacity="0.45" stop-color="rgba(99,102,241,0.45)" offset="1"></stop></lineargradient></defs><line id="SvgjsLine1012" x1="0" y1="0" x2="0" y2="60" stroke="#b6b6b6" stroke-dasharray="3" stroke-linecap="butt" class="apexcharts-xcrosshairs" x="0" y="0" width="1" height="60" fill="#b1b9c4" filter="none" fill-opacity="0.9" stroke-width="1"></line><g id="SvgjsG1026" class="apexcharts-xaxis" transform="translate(0, 0)"><g id="SvgjsG1027" class="apexcharts-xaxis-texts-g" transform="translate(0, -4)"></g></g><g id="SvgjsG1033" class="apexcharts-grid"><g id="SvgjsG1034" class="apexcharts-gridlines-horizontal"><line id="SvgjsLine1036" x1="0" y1="0" x2="132" y2="0" stroke="#e0e0e0" stroke-dasharray="0" stroke-linecap="butt" class="apexcharts-gridline"></line><line id="SvgjsLine1037" x1="0" y1="8.571428571428571" x2="132" y2="8.571428571428571" stroke="#e0e0e0" stroke-dasharray="0" stroke-linecap="butt" class="apexcharts-gridline"></line><line id="SvgjsLine1038" x1="0" y1="17.142857142857142" x2="132" y2="17.142857142857142" stroke="#e0e0e0" stroke-dasharray="0" stroke-linecap="butt" class="apexcharts-gridline"></line><line id="SvgjsLine1039" x1="0" y1="25.714285714285715" x2="132" y2="25.714285714285715" stroke="#e0e0e0" stroke-dasharray="0" stroke-linecap="butt" class="apexcharts-gridline"></line><line id="SvgjsLine1040" x1="0" y1="34.285714285714285" x2="132" y2="34.285714285714285" stroke="#e0e0e0" stroke-dasharray="0" stroke-linecap="butt" class="apexcharts-gridline"></line><line id="SvgjsLine1041" x1="0" y1="42.857142857142854" x2="132" y2="42.857142857142854" stroke="#e0e0e0" stroke-dasharray="0" stroke-linecap="butt" class="apexcharts-gridline"></line><line id="SvgjsLine1042" x1="0" y1="51.42857142857142" x2="132" y2="51.42857142857142" stroke="#e0e0e0" stroke-dasharray="0" stroke-linecap="butt" class="apexcharts-gridline"></line><line id="SvgjsLine1043" x1="0" y1="59.99999999999999" x2="132" y2="59.99999999999999" stroke="#e0e0e0" stroke-dasharray="0" stroke-linecap="butt" class="apexcharts-gridline"></line></g><g id="SvgjsG1035" class="apexcharts-gridlines-vertical"></g><line id="SvgjsLine1045" x1="0" y1="60" x2="132" y2="60" stroke="transparent" stroke-dasharray="0" stroke-linecap="butt"></line><line id="SvgjsLine1044" x1="0" y1="1" x2="0" y2="60" stroke="transparent" stroke-dasharray="0" stroke-linecap="butt"></line></g><g id="SvgjsG1015" class="apexcharts-area-series apexcharts-plot-series"><g id="SvgjsG1016" class="apexcharts-series" seriesName="Posts" data:longestSeries="true" rel="1" data:realIndex="0"><path id="SvgjsPath1024" d="M0 60L0 53.14285714285714C15.399999999999999 53.14285714285714 28.6 8.57142857142857 44 8.57142857142857C59.4 8.57142857142857 72.6 34.285714285714285 88 34.285714285714285C103.4 34.285714285714285 116.6 15.42857142857143 132 15.42857142857143C132 15.42857142857143 132 15.42857142857143 132 60M132 15.42857142857143C132 15.42857142857143 132 15.42857142857143 132 15.42857142857143 " fill="url(#SvgjsLinearGradient1019)" fill-opacity="1" stroke-opacity="1" stroke-linecap="butt" stroke-width="0" stroke-dasharray="0" class="apexcharts-area" index="0" clip-path="url(#gridRectMaskl3fue5bc)" pathTo="M 0 60L 0 53.14285714285714C 15.399999999999999 53.14285714285714 28.6 8.57142857142857 44 8.57142857142857C 59.4 8.57142857142857 72.6 34.285714285714285 88 34.285714285714285C 103.4 34.285714285714285 116.6 15.42857142857143 132 15.42857142857143C 132 15.42857142857143 132 15.42857142857143 132 60M 132 15.42857142857143z" pathFrom="M -1 94.28571428571428L -1 94.28571428571428L 44 94.28571428571428L 88 94.28571428571428L 132 94.28571428571428"></path><path id="SvgjsPath1025" d="M0 53.14285714285714C15.399999999999999 53.14285714285714 28.6 8.57142857142857 44 8.57142857142857C59.4 8.57142857142857 72.6 34.285714285714285 88 34.285714285714285C103.4 34.285714285714285 116.6 15.42857142857143 132 15.42857142857143C132 15.42857142857143 132 15.42857142857143 132 15.42857142857143 " fill="none" fill-opacity="1" stroke="#6366f1" stroke-opacity="1" stroke-linecap="butt" stroke-width="2" stroke-dasharray="0" class="apexcharts-area" index="0" clip-path="url(#gridRectMaskl3fue5bc)" pathTo="M 0 53.14285714285714C 15.399999999999999 53.14285714285714 28.6 8.57142857142857 44 8.57142857142857C 59.4 8.57142857142857 72.6 34.285714285714285 88 34.285714285714285C 103.4 34.285714285714285 116.6 15.42857142857143 132 15.42857142857143" pathFrom="M -1 94.28571428571428L -1 94.28571428571428L 44 94.28571428571428L 88 94.28571428571428L 132 94.28571428571428"></path><g id="SvgjsG1017" class="apexcharts-series-markers-wrap" data:realIndex="0"><g class="apexcharts-series-markers"><circle id="SvgjsCircle1051" r="0" cx="0" cy="0" class="apexcharts-marker we3d3x7ws no-pointer-events" stroke="#ffffff" fill="#6366f1" fill-opacity="1" stroke-width="2" stroke-opacity="0.9" default-marker-size="0"></circle></g></g></g><g id="SvgjsG1018" class="apexcharts-datalabels" data:realIndex="0"></g></g><line id="SvgjsLine1046" x1="0" y1="0" x2="132" y2="0" stroke="#b6b6b6" stroke-dasharray="0" stroke-width="1" stroke-linecap="butt" class="apexcharts-ycrosshairs"></line><line id="SvgjsLine1047" x1="0" y1="0" x2="132" y2="0" stroke-dasharray="0" stroke-width="0" stroke-linecap="butt" class="apexcharts-ycrosshairs-hidden"></line><g id="SvgjsG1048" class="apexcharts-yaxis-annotations"></g><g id="SvgjsG1049" class="apexcharts-xaxis-annotations"></g><g id="SvgjsG1050" class="apexcharts-point-annotations"></g><rect id="SvgjsRect1052" width="0" height="0" x="0" y="0" rx="0" ry="0" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fefefe" class="apexcharts-zoom-rect"></rect><rect id="SvgjsRect1053" width="0" height="0" x="0" y="0" rx="0" ry="0" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fefefe" class="apexcharts-selection-rect"></rect></g><rect id="SvgjsRect1011" width="0" height="0" x="0" y="0" rx="0" ry="0" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fefefe"></rect><g id="SvgjsG1032" class="apexcharts-yaxis" rel="0" transform="translate(-18, 0)"></g><g id="SvgjsG1009" class="apexcharts-annotations"></g></svg><div class="apexcharts-legend" style="max-height: 42.5px;"></div><div class="apexcharts-tooltip apexcharts-theme-light"><div class="apexcharts-tooltip-title" style="font-family: Helvetica, Arial, sans-serif; font-size: 12px;"></div><div class="apexcharts-tooltip-series-group" style="order: 1;"><span class="apexcharts-tooltip-marker" style="background-color: rgb(99, 102, 241);"></span><div class="apexcharts-tooltip-text" style="font-family: Helvetica, Arial, sans-serif; font-size: 12px;"><div class="apexcharts-tooltip-y-group"><span class="apexcharts-tooltip-text-y-label"></span><span class="apexcharts-tooltip-text-y-value"></span></div><div class="apexcharts-tooltip-goals-group"><span class="apexcharts-tooltip-text-goals-label"></span><span class="apexcharts-tooltip-text-goals-value"></span></div><div class="apexcharts-tooltip-z-group"><span class="apexcharts-tooltip-text-z-label"></span><span class="apexcharts-tooltip-text-z-value"></span></div></div></div></div><div class="apexcharts-xaxistooltip apexcharts-xaxistooltip-bottom apexcharts-theme-light"><div class="apexcharts-xaxistooltip-text" style="font-family: Helvetica, Arial, sans-serif; font-size: 12px;"></div></div><div class="apexcharts-yaxistooltip apexcharts-yaxistooltip-0 apexcharts-yaxistooltip-left apexcharts-theme-light"><div class="apexcharts-yaxistooltip-text"></div></div></div></div>
+                </div>
+                <div class="w-3/12 text-center">
+                  <p class="text-xl font-medium text-slate-700 dark:text-navy-100">
+                    5                  </p>
+                  <p class="text-xs+">Inv.</p>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+
+
+
+
+<div class="col-span-12 lg:col-span-9">
+          <div class="card px-4 pb-4 sm:px-5">
+            
+            <div class="max-w-2xl">
+             
+              <div class="mt-5">
+                <div x-data="{activeTab:&#39;tabProfile&#39;}" class="tabs flex flex-col">
+                  <div class="is-scrollbar-hidden overflow-x-auto">
+                    <div class="border-b-2 border-slate-150 dark:border-navy-500">
+                      <div class="tabs-list -mb-0.5 flex">
+                        <button @click="activeTab = &#39;tabProfile&#39;" :class="activeTab === &#39;tabProfile&#39; ? &#39;border-primary dark:border-accent text-primary dark:text-accent-light&#39; : &#39;border-transparent hover:text-slate-800 focus:text-slate-800 dark:hover:text-navy-100 dark:focus:text-navy-100&#39;" class="btn shrink-0 space-x-2 rounded-none border-b-2 px-3 py-2 font-medium border-primary dark:border-accent text-primary dark:text-accent-light">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                          <span>Profile Settings</span>
+                        </button>
+                        <a href="{% url 'change-password' %}">
+                          <button  = &#39;tabpass&#39;" :class="activeTab === &#39;tabpass&#39; ? &#39;border-primary dark:border-accent text-primary dark:text-accent-light&#39; : &#39;border-transparent hover:text-slate-800 focus:text-slate-800 dark:hover:text-navy-100 dark:focus:text-navy-100&#39;" class="btn shrink-0 space-x-2 rounded-none border-b-2 px-3 py-2 font-medium border-transparent hover:text-slate-800 focus:text-slate-800 dark:hover:text-navy-100 dark:focus:text-navy-100">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400 transition-colors group-hover:text-slate-500 group-focus:text-slate-500 dark:text-navy-300 dark:group-hover:text-navy-200 dark:group-focus:text-navy-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                          </svg>
+                                <span> Password/Security </span>
+                              </button>
+                        </a>
+                        
+                      </div>
+                    </div>
+                  </div>
+                  <div class="tab-content pt-4">
+                    <div x-show="activeTab === &#39;tabProfile&#39;" x-transition:enter="transition-all duration-500 easy-in-out" x-transition:enter-start="opacity-0 [transform:translate3d(1rem,0,0)]" x-transition:enter-end="opacity-100 [transform:translate3d(0,0,0)]">
+                      <div class="p-4 sm:p-5">
+                      <form method="post" enctype="multipart/form-data">       
+                        {% csrf_token %}      
+                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <label class="block">
+                    <span>First Name </span>
+                    <span class="relative mt-1.5 flex">
+                      {{ form.first_name }}
+                      <span class="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
+                        <i class="fa-regular fa-user text-base"></i>
+                      </span>
+                    </span>
+                  </label>
+                  <label class="block">
+                    <span>Last Name </span>
+                    <span class="relative mt-1.5 flex">
+                      {{ form.last_name }}
+                      <span class="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
+                        <i class="fa-regular fa-user text-base"></i>
+                      </span>
+                    </span>
+                  </label>
+                  <label class="block">
+                    <span>Email Address </span>
+                    <span class="relative mt-1.5 flex">
+                        {{ form.email }}
+                      <span class="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
+                        <i class="fa-regular fa-envelope text-base"></i>
+                      </span>
+                    </span>
+                  </label>
+                  <label class="block">
+                    <span>Username</span>
+                    <span class="relative mt-1.5 flex">
+                      {{ form.username }}
+                      <span class="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
+                        <i class="fa fa-flag"></i>
+                      </span>
+                    </span>
+                  </label>
+                  
+                </div>
+                
+                <div class="flex flex-col items-center space-y-4 p-4 dark:border-navy-500 sm:flex-row sm:justify-between sm:space-y-0 sm:px-5">
+              
+                  <div class="flex justify-center space-x-2">
+                    
+                    <button class="btn min-w-[7rem] rounded-full bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90" type="submit" name="sub-upd">
+                      Save
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+           
+              
+                    </div>
+                    <div x-show="activeTab === &#39;tabwallet&#39;" x-transition:enter="transition-all duration-500 easy-in-out" x-transition:enter-start="opacity-0 [transform:translate3d(1rem,0,0)]" x-transition:enter-end="opacity-100 [transform:translate3d(0,0,0)]" style="display: none;">
+                    </div>
+                    <div x-show="activeTab === &#39;tabpass&#39;" x-transition:enter="transition-all duration-500 easy-in-out" x-transition:enter-start="opacity-0 [transform:translate3d(1rem,0,0)]" x-transition:enter-end="opacity-100 [transform:translate3d(0,0,0)]" style="display: none;">
+                  <form action="{% url 'change-password' %}" method="post" enctype="multipart/form-data">              
+              <div class="p-4 sm:p-5">
+              
+                
+                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <label class="block">
+                    <span>Old Password </span>
+                    <span class="relative mt-1.5 flex">
+                      <input class="form-input peer w-full rounded-full border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" placeholder="Enter name" type="password" name="oldpass">
+                      <span class="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
+                        <i class="fa-regular fa-user text-base"></i>
+                      </span>
+                    </span>
+                  </label>
+                  <label class="block">
+                  
+                  
+                  </label>
+                  <label class="block">
+                    <span>New password </span>
+                    <span class="relative mt-1.5 flex">
+                      <input class="form-input peer w-full rounded-full border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" placeholder="Enter email address" type="password" name="newpass">
+                      <span class="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
+                        <i class="fa-regular fa-envelope text-base"></i>
+                      </span>
+                    </span>
+                  </label>
+                  <label class="block">
+                    <span>Confirm Password</span>
+                    <span class="relative mt-1.5 flex">
+                      <input class="form-input peer w-full rounded-full border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" placeholder="Enter phone number" type="password" name="conpass">
+                      <span class="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
+                        <i class="fa fa-flag"></i>
+                      </span>
+                    </span>
+                  </label>
+             
+                
+                </div>
+                
+            
+              </div>
+              <div class="flex flex-col items-center space-y-4 p-4 dark:border-navy-500 sm:flex-row sm:justify-between sm:space-y-0 sm:px-5">
+              
+                <div class="flex justify-center space-x-2">
+                  
+                  <button class="btn min-w-[7rem] rounded-full bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90" type="submit" name="sub-pass">
+                    Save
+                  </button>
+                </div>
+              </div>
+              </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        
+          </div>
+</div>
+</div>
+      </main>
+    </div>
+    <!-- 
+        This is a place for Alpine.js Teleport feature 
+        @see https://alpinejs.dev/directives/teleport
+      -->
+    <div id="x-teleport-target"></div>
+    <script>
+      window.addEventListener("DOMContentLoaded", () => Alpine.start());
+    </script>
+  
+
+<div id="goog-gt-tt" class="VIpgJd-yAWNEb-L7lbkb skiptranslate" style="border-radius: 12px; margin: 0 0 0 -23px; padding: 0; font-family: &#39;Google Sans&#39;, Arial, sans-serif;" data-id=""><div id="goog-gt-vt" class="VIpgJd-yAWNEb-hvhgNd"><div class=" VIpgJd-yAWNEb-hvhgNd-l4eHX-i3jM8c"><img src="./profile_files/24px.svg" width="24" height="24" alt=""></div><div class=" VIpgJd-yAWNEb-hvhgNd-k77Iif-i3jM8c"><div class="VIpgJd-yAWNEb-hvhgNd-IuizWc" dir="ltr">Original text</div><div id="goog-gt-original-text" class="VIpgJd-yAWNEb-nVMfcd-fmcmS VIpgJd-yAWNEb-hvhgNd-axAV1"></div></div><div class="VIpgJd-yAWNEb-hvhgNd-N7Eqid ltr"><div class="VIpgJd-yAWNEb-hvhgNd-N7Eqid-B7I4Od ltr" dir="ltr"><div class="VIpgJd-yAWNEb-hvhgNd-UTujCb">Rate this translation</div><div class="VIpgJd-yAWNEb-hvhgNd-eO9mKe">Your feedback will be used to help improve Google Translate</div></div><div class="VIpgJd-yAWNEb-hvhgNd-xgov5 ltr"><button id="goog-gt-thumbUpButton" type="button" class="VIpgJd-yAWNEb-hvhgNd-bgm6sf" title="Good translation" aria-label="Good translation" aria-pressed="false"><span id="goog-gt-thumbUpIcon"><svg width="24" height="24" viewBox="0 0 24 24" focusable="false" class="VIpgJd-yAWNEb-hvhgNd-THI6Vb NMm5M"><path d="M21 7h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 0S7.08 6.85 7 7H2v13h16c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73V9c0-1.1-.9-2-2-2zM7 18H4V9h3v9zm14-7l-3 7H9V8l4.34-4.34L12 9h9v2z"></path></svg></span><span id="goog-gt-thumbUpIconFilled"><svg width="24" height="24" viewBox="0 0 24 24" focusable="false" class="VIpgJd-yAWNEb-hvhgNd-THI6Vb NMm5M"><path d="M21 7h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 0S7.08 6.85 7 7v13h11c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73V9c0-1.1-.9-2-2-2zM5 7H1v13h4V7z"></path></svg></span></button><button id="goog-gt-thumbDownButton" type="button" class="VIpgJd-yAWNEb-hvhgNd-bgm6sf" title="Poor translation" aria-label="Poor translation" aria-pressed="false"><span id="goog-gt-thumbDownIcon"><svg width="24" height="24" viewBox="0 0 24 24" focusable="false" class="VIpgJd-yAWNEb-hvhgNd-THI6Vb NMm5M"><path d="M3 17h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 24s7.09-6.85 7.17-7h5V4H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2c0 1.1.9 2 2 2zM17 6h3v9h-3V6zM3 13l3-7h9v10l-4.34 4.34L12 15H3v-2z"></path></svg></span><span id="goog-gt-thumbDownIconFilled"><svg width="24" height="24" viewBox="0 0 24 24" focusable="false" class="VIpgJd-yAWNEb-hvhgNd-THI6Vb NMm5M"><path d="M3 17h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 24s7.09-6.85 7.17-7V4H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2c0 1.1.9 2 2 2zm16 0h4V4h-4v13z"></path></svg></span></button></div></div><div id="goog-gt-votingHiddenPane" class="VIpgJd-yAWNEb-hvhgNd-aXYTce"><form id="goog-gt-votingForm" action="https://translate.googleapis.com/translate_voting?client=te" method="post" target="votingFrame" class="VIpgJd-yAWNEb-hvhgNd-aXYTce"><input type="text" name="sl" id="goog-gt-votingInputSrcLang"><input type="text" name="tl" id="goog-gt-votingInputTrgLang"><input type="text" name="query" id="goog-gt-votingInputSrcText"><input type="text" name="gtrans" id="goog-gt-votingInputTrgText"><input type="text" name="vote" id="goog-gt-votingInputVote"></form><iframe name="votingFrame" frameborder="0" src="./profile_files/saved_resource.html"></iframe></div></div></div><svg id="SvgjsSvg1001" width="2" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev" style="overflow: hidden; top: -100%; left: -100%; position: absolute; opacity: 0;"><defs id="SvgjsDefs1002"></defs><polyline id="SvgjsPolyline1003" points="0,0"></polyline><path id="SvgjsPath1004" d="M-1 94.28571428571428L-1 94.28571428571428C-1 94.28571428571428 44 94.28571428571428 44 94.28571428571428C44 94.28571428571428 88 94.28571428571428 88 94.28571428571428C88 94.28571428571428 132 94.28571428571428 132 94.28571428571428C132 94.28571428571428 132 94.28571428571428 132 94.28571428571428 "></path></svg><div class="VIpgJd-ZVi9od-aZ2wEe-wOHMyf"><div class="VIpgJd-ZVi9od-aZ2wEe-OiiCO"><svg xmlns="http://www.w3.org/2000/svg" class="VIpgJd-ZVi9od-aZ2wEe" width="96px" height="96px" viewBox="0 0 66 66"><circle class="VIpgJd-ZVi9od-aZ2wEe-Jt5cK" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle></svg></div></div></body></html>
+{% endblock %}

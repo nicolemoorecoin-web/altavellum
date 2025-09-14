@@ -1,0 +1,560 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script type="text/javascript" src="https://js.stripe.com/v3/"></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="Hpu1YwekAie3WsJoIqxE0XegMR5C0lpvKmTqFr0j">
+    <title>Nextmining| Fund your account</title>
+    <link rel="icon" href="https://account.xtbonlinetrading.com/storage/app/public/photos/Asset 369xtbonlinetrading.png" type="image/png"/>
+	
+					<!-- Fonts and icons -->
+		<script src="./webfont.min.js"></script>
+	<!-- Sweet Alert -->
+		<script src="./sweetalert.min.js "></script>
+		<!-- CSS Files -->
+		<link rel="stylesheet" href="./bootstrap.min.css">
+		<link rel="stylesheet" href="./fonts.min.css">
+		<link rel="stylesheet" href="./atlantis.min.css">
+		<link rel="stylesheet" href="./customs.css">
+		<link rel="stylesheet" href="./style.css">
+		<link rel="stylesheet" href="./atlantis.min.css">
+		<link rel="stylesheet" href="./buttons.dataTables.min.css">
+		<link rel="stylesheet" type="text/css" href="./datatables.min.css"/>
+		
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>		
+			
+		<!-- Bootstrap Notify -->
+		<script src="./bootstrap-notify.min.js "></script>
+		<script src="./sweetalert.min.js "></script>
+		<script src="./alpine.min.js" defer></script>
+		<script src="./chart.min.js"></script>
+		<style>[wire\:loading], [wire\:loading\.delay], [wire\:loading\.inline-block], [wire\:loading\.inline], [wire\:loading\.block], [wire\:loading\.flex], [wire\:loading\.table], [wire\:loading\.grid] {display: none;}[wire\:offline] {display: none;}[wire\:dirty]:not(textarea):not(input):not(select) {display: none;}input:-webkit-autofill, select:-webkit-autofill, textarea:-webkit-autofill {animation-duration: 50000s;animation-name: livewireautofill;}@keyframes livewireautofill { from {} }</style>
+
+
+		 <!--PayPal-->
+		 <script>
+            // Add your client ID and secret
+            var PAYPAL_CLIENT = 'iidjdjdj';
+            var PAYPAL_SECRET = 'jijdjkdkdk';
+            
+            // Point your server to the PayPal API
+            var PAYPAL_ORDER_API = 'https://api.paypal.com/v2/checkout/orders/';
+        </script>
+        <script src="https://www.paypal.com/sdk/js?client-id=iidjdjdj"></script>
+		
+</head>
+<body data-background-color="dark">
+    <div id="app">
+        
+        <!--/PayPal-->
+            
+        <!--Start of Tawk.to Script-->
+        <script type="text/javascript">
+        {}
+        </script>
+        <!--End of Tawk.to Script-->
+		<div class="wrapper">
+			        <div class="main-header">
+    <!-- Logo Header -->
+    <div class="logo-header" data-background-color="dark">
+        <a href="/" class="logo" style="font-size: 1.3rem; color:#fff;">
+            <!--XTB Trading-->
+            <img class="auth__logo img-fluid" 
+                            src="https://account.xtbonlinetrading.com/storage/app/public/photos/Asset 368xtbonlinetrading.png" alt="XTB Trading" width="100px">
+        </a>
+        <button class="ml-auto navbar-toggler sidenav-toggler" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon">
+                <i class="icon-menu"></i>
+            </span>
+        </button>
+        <button class="topbar-toggler more"><i class="icon-options-vertical"></i></button>
+        <div class="nav-toggle">
+            <button class="btn btn-toggle toggle-sidebar">
+                <i class="icon-menu"></i>
+            </button>
+        </div>
+    </div>
+    <!-- End Logo Header -->
+
+    <!-- Navbar Header -->
+    <nav class="navbar navbar-header navbar-expand-lg" data-background-color="dark">
+        
+        <div class="container-fluid">
+            <div class="text-center d-md-block d-none">
+                <a href="https://account.xtbonlinetrading.com/dashboard/deposits" class="pricing-action btn btn-warning btn-sm">Fund your Account</a> &nbsp;
+                <a href="https://account.xtbonlinetrading.com/dashboard/withdrawals" class="pricing-action btn btn-danger btn-sm">Withdraw Funds</a>
+                
+            </div>
+            <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
+               
+                <li class="nav-item hidden-caret">
+                    <form action="javascript:void(0)" method="post" id="styleform" class="form-inline">
+                       
+                        <div class="form-group">
+                            <label class="style_switch">
+                                <input name="style" id="style" type="checkbox" value="true" class="modes">
+                                <span class="slider round"></span>
+                            </label>
+                        </div> 
+                                                <script>document.getElementById("style").checked= true;</script>
+                                                <input type="hidden" name="_token" value="Hpu1YwekAie3WsJoIqxE0XegMR5C0lpvKmTqFr0j">
+                    </form>
+                </li>
+                                <li class="nav-item hidden-caret">
+                    <div id="google_translate_element"></div>
+                </li>
+                               
+                                <li class="nav-item dropdown hidden-caret">
+                    <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
+                        <i class="fas fa-user"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user animated fadeIn">
+                        <div class="dropdown-user-scroll scrollbar-outer">
+                            <li>
+                                <div class="user-box">
+                                    
+                                    <div class="u-text">
+                                        <h4>Main Guy</h4>
+                                        <p class="text-muted">kenncofficial@gmail.com</p><a href="https://account.xtbonlinetrading.com/dashboard/account-settings" class="btn btn-xs btn-secondary btn-sm">Account Settings</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="https://account.xtbonlinetrading.com/dashboard/deposits">Deposit</a>
+                                <a class="dropdown-item" href="https://account.xtbonlinetrading.com/dashboard/withdrawals">Withdraw</a>
+                                <a class="dropdown-item" href="https://account.xtbonlinetrading.com/dashboard/buy-plan">Buy Plan</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="https://account.xtbonlinetrading.com/logout"
+                                    onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">
+                                    Logout
+                                    </a>
+                                <form id="logout-form" action="https://account.xtbonlinetrading.com/logout" method="POST" style="display: none;">
+                                    <input type="hidden" name="_token" value="Hpu1YwekAie3WsJoIqxE0XegMR5C0lpvKmTqFr0j">
+                                </form> 
+                            </li>
+                        </div>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!-- End Navbar -->
+</div>
+<script type="text/javascript">
+    //create investment
+        $("#styleform").on('change',function(){
+        $.ajax({
+            url: "https://account.xtbonlinetrading.com/dashboard/changetheme",
+            type: 'POST',
+            data:$("#styleform").serialize(),
+            success: function (data) {
+				location.reload(true);
+            },
+            error: function (data) {
+                console.log(data);
+            },
+
+        });
+    });
+    
+</script>        <!-- Stored in resources/views/child.blade.php -->
+
+<!-- Sidebar -->
+
+<div class="sidebar sidebar-style-2" data-background-color="dark">
+    <div class="sidebar-wrapper scrollbar scrollbar-inner">
+        <div class="sidebar-content">
+            <div class="user">
+                <div class="info">
+                    <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
+                        <span>
+                            Main Guy
+                            
+                            <span class="caret"></span>
+                        </span>
+                    </a>
+                    <div class="clearfix"></div>
+                    <div class="collapse in" id="collapseExample">
+                        <ul class="nav">
+                            <li>
+                                <a href="https://account.xtbonlinetrading.com/dashboard/account-settings">
+                                    <span class="link-collapse">Account Settings</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <ul class="nav nav-primary">
+                <li class="nav-item ">
+                    <a href="https://account.xtbonlinetrading.com/dashboard">
+                        <i class="fas fa-home"></i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li class="nav-item active ">
+                    <a href="https://account.xtbonlinetrading.com/dashboard/deposits">
+                        <i class="fa fa-download " aria-hidden="true"></i>
+                        <p>Deposit</p>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="https://account.xtbonlinetrading.com/dashboard/buy-plan">
+                        <i class="fa fa-cubes " aria-hidden="true"></i>
+                        <p>Invest</p>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="https://account.xtbonlinetrading.com/dashboard/withdrawals">
+                        <i class="fa fa-arrow-alt-circle-up " aria-hidden="true"></i>
+                        <p>Withdraw Funds</p>
+                    </a>
+                </li>
+                <!--<li class="nav-item">-->
+                <!--    <a data-toggle="collapse" href="#mpack">-->
+                <!--        <i class="fas fa-credit-card"></i>-->
+                <!--        <p>Withdraw</p>-->
+                <!--        <span class="caret"></span>-->
+                <!--    </a>-->
+                <!--    <div class="collapse" id="mpack">-->
+                <!--        <ul class="nav nav-collapse">-->
+                <!--            <li>-->
+                <!--                <a href="https://account.xtbonlinetrading.com/dashboard/withdrawals">-->
+                <!--                    <span class="sub-item">Request Withdrawal</span>-->
+                <!--                </a>-->
+                <!--            </li>-->
+                <!--            <li>-->
+                <!--                <a href="https://account.xtbonlinetrading.com/dashboard/account-settings#set">-->
+                <!--                    <span class="sub-item">My Wallet Address</span>-->
+                <!--                </a>-->
+                <!--            </li>-->
+                <!--        </ul>-->
+                <!--    </div>-->
+                <!--</li> -->
+
+                <li class="nav-item ">
+                    <a href="https://account.xtbonlinetrading.com/dashboard/tradinghistory">
+                        <i class="fa fa-signal " aria-hidden="true"></i>
+                        <p>Profit Record</p>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="https://account.xtbonlinetrading.com/dashboard/accounthistory">
+                        <i class="fa fa-briefcase " aria-hidden="true"></i>
+                        <p>Transactions</p>
+                    </a>
+                </li>
+                                                
+                <!--<li class="nav-item  ">-->
+                <!--    <a data-toggle="collapse" href="#mpack">-->
+                <!--        <i class="fas fa-cubes"></i>-->
+                <!--        <p>Invest</p>-->
+                <!--        <span class="caret"></span>-->
+                <!--    </a>-->
+                <!--    <div class="collapse" id="mpack">-->
+                <!--        <ul class="nav nav-collapse">-->
+                <!--            <li>-->
+                <!--                <a href="https://account.xtbonlinetrading.com/dashboard/buy-plan">-->
+                <!--                    <span class="sub-item">Subscribe to a Plan</span>-->
+                <!--                </a>-->
+                <!--            </li>-->
+                <!--            <li>-->
+                <!--                <a href="https://account.xtbonlinetrading.com/dashboard/myplans">-->
+                <!--                    <span class="sub-item">My Investment</span>-->
+                <!--                </a>-->
+                <!--            </li>-->
+                <!--        </ul>-->
+                <!--    </div>-->
+                <!--</li>  -->
+                <li class="nav-item ">
+                    <a href="https://account.xtbonlinetrading.com/dashboard/referuser">
+                        <i class="fa fa-recycle " aria-hidden="true"></i>
+                        <p>Refer Users</p>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="https://account.xtbonlinetrading.com/dashboard/support">
+                        <i class="fa fa-life-ring" aria-hidden="true"></i>
+                        <p>Help/Support</p>
+                    </a>
+                </li>
+                <!-- -->
+                <!--<li class="nav-item hidden-caret">-->
+                <!--    <div id="google_translate_element"></div>-->
+                <!--</li>-->
+                <!---->
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- End Sidebar -->
+        <div class="main-panel bg-dark">
+			<div class="content bg-dark">
+				<div class="page-inner">
+					<div class="mt-2 mb-4">
+						<h1 class="title1 text-light">Fund Your Account</h1>
+					</div>
+					<div>
+    </div>					<div>
+    </div>					<div class="row">
+						<div class="col-md-12">
+							<div class="card bg-dark">
+								<div class="card-body">
+									<div class="row">
+										<div class="col-md-8">
+											
+											<form action="javascript:;" method="post" id="submitpaymentform">
+												<input type="hidden" name="_token" value="Hpu1YwekAie3WsJoIqxE0XegMR5C0lpvKmTqFr0j">												<div class="row">
+													<div class="mb-4 col-md-12">
+														<h5 class="card-title text-light mb-2">Amount</h5>
+														<input class="form-control text-light bg-dark" placeholder="Enter Amount" type="number" name="amount" required>
+													</div>
+													<div class="mb-4 col-md-12">
+														<input type="hidden" name="payment_method" id="paymethod">
+													</div>
+													<div class="mt-2 mb-1 col-md-12">
+														<h5 class="card-title text-light">Choose Payment Method from the list below</h5>
+													</div>
+																										<div class="mb-3 mt-2 col-md-4">
+														<a style="cursor: pointer;" data-method="USDT TRC20" id="17" class="text-decoration-none" onclick="checkpamethd(this.id)">
+															<div class="rounded border " id="17c">
+																<div class="card-body">
+																	<span class="text-light">
+																																				<img src="https://s2.coinmarketcap.com/static/img/coins/64x64/74.png" alt="" class="" style="width: 25px;">
+																																				  USDT TRC20
+																	</span> 
+																</div>
+															</div>
+														</a>
+													</div>
+																										<div class="mb-3 mt-2 col-md-4">
+														<a style="cursor: pointer;" data-method="USDT ERC 20" id="15" class="text-decoration-none" onclick="checkpamethd(this.id)">
+															<div class="rounded border " id="15c">
+																<div class="card-body">
+																	<span class="text-light">
+																																				<img src="https://s2.coinmarketcap.com/static/img/coins/64x64/825.png" alt="" class="" style="width: 25px;">
+																																				  USDT ERC 20
+																	</span> 
+																</div>
+															</div>
+														</a>
+													</div>
+																										<div class="mb-3 mt-2 col-md-4">
+														<a style="cursor: pointer;" data-method="Ethereum" id="2" class="text-decoration-none" onclick="checkpamethd(this.id)">
+															<div class="rounded border " id="2c">
+																<div class="card-body">
+																	<span class="text-light">
+																																				<img src="https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png" alt="" class="" style="width: 25px;">
+																																				  Ethereum
+																	</span> 
+																</div>
+															</div>
+														</a>
+													</div>
+																										<div class="mb-3 mt-2 col-md-4">
+														<a style="cursor: pointer;" data-method="Bitcoin" id="1" class="text-decoration-none" onclick="checkpamethd(this.id)">
+															<div class="rounded border " id="1c">
+																<div class="card-body">
+																	<span class="text-light">
+																																				<img src="https://s2.coinmarketcap.com/static/img/coins/64x64/1.png" alt="" class="" style="width: 25px;">
+																																				  Bitcoin
+																	</span> 
+																</div>
+															</div>
+														</a>
+													</div>
+																																								<div class="mt-2 mb-1 col-md-12">
+															<input type="submit" class="px-5 btn btn-primary btn-lg" value="Procced to Payment">
+														</div>
+																										
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<script>
+				let paymethod = document.querySelector('#paymethod');
+				
+				function checkpamethd(id){
+				    document.getElementById(`${id}c`).classList.toggle('bg-dark')
+				    
+					let url = "https://account.xtbonlinetrading.com/dashboard/get-method" + '/' + id;
+					fetch(url)
+					.then(function(res){
+						return res.json();
+					})
+					.then(function (response){
+						paymethod.value = response;
+						$.notify({
+							// options
+							icon: 'flaticon-alarm-1',
+							title: 'Payment Method',
+							message: 'you have chosen to pay with ' + ' ' + response,
+						},{
+							// settings
+							type: 'success',
+							allow_dismiss: true,
+							newest_on_top: false,
+							placement: {
+								from: "top",
+								align: "right"
+							},
+							offset: 20,
+							spacing: 10,
+							z_index: 1031,
+							delay: 5000,
+							timer: 1000,
+							animate: {
+								enter: 'animated fadeInDown',
+								exit: 'animated fadeOutUp'
+							},
+		
+						});
+					})
+					.catch(function(err){
+						console.log(err);
+					});
+				}
+				$('#submitpaymentform').on('submit', function() {
+					//alert('love');
+					if (paymethod.value == "") {
+						$.notify({
+							// options
+							icon: 'flaticon-alarm-1',
+							title: 'Select Payment Method',
+							message: 'Please choose a payment method by clicking on it',
+						},{
+							// settings
+							type: 'danger',
+							allow_dismiss: true,
+							newest_on_top: false,
+							placement: {
+								from: "top",
+								align: "right"
+							},
+							offset: 20,
+							spacing: 10,
+							z_index: 1031,
+							delay: 5000,
+							timer: 1000,
+							animate: {
+								enter: 'animated fadeInDown',
+								exit: 'animated fadeOutUp'
+							},
+		
+						});
+					}else {
+						let makepayurl = "https://account.xtbonlinetrading.com/dashboard/newdeposit"
+						//console.log(makepayurl);
+						document.getElementById("submitpaymentform").action = makepayurl;
+						
+					}
+					
+				});
+			</script>
+					<footer class="footer bg-dark text-light">
+					<div class="container-fluid">
+						<div class="text-center row copyright text-align-center">
+							<p>All Rights Reserved &copy; Nextmining2022</p>
+						</div>
+					</div>
+				</footer>
+			</div>
+		</div>
+	</div>
+
+			<!--   Core JS Files   -->
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		
+            <script src="./popper.min.js"></script>
+            <script src="./bootstrap.min.js "></script>
+            <script src="./customs.js"></script>
+            
+            <!-- jQuery UI -->
+            <script src="./jquery-ui.min.js"></script>
+            <script src="./jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+    
+            <!-- jQuery Scrollbar -->
+            <script src="./jquery.scrollbar.min.js "></script>
+    
+            <!-- jQuery Sparkline -->
+            <script src="./jquery.sparkline.min.js "></script>
+    
+            <!-- Sweet Alert -->
+            <script src="./sweetalert.min.js "></script>
+            <!-- Bootstrap Notify -->
+            <script src="./bootstrap-notify.min.js "></script>
+            
+            <script type="text/javascript" src="./datatables.min.js"></script>
+    
+            <script src="./atlantis.min.js"></script>
+            <script src="./atlantis.js"></script>
+    
+            <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+		
+		<script type="text/javascript">
+		function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+}
+		</script>
+
+		<script type="text/javascript">
+			var badWords = [ 
+				'<!--Start of Tawk.to Script-->',
+				'<script type="text/javascript">', 
+				'<!--End of Tawk.to Script-->'
+						];
+			$(':input').on('blur', function(){
+				var value = $(this).val();
+				$.each(badWords, function(idx, word){
+					value = value.replace(word, '');
+				});
+				$(this).val( value);
+			});
+		</script>
+		<script>
+			$(document).ready( function () {
+				$('#ShipTable').DataTable({
+					order: [ [0, 'desc'] ],
+					dom: 'Bfrtip',
+					buttons: [
+					'copy', 'csv', 'print', 'excel','pdf'
+				] 
+				});
+
+				
+				$(".dataTables_length select").addClass("bg-dark text-light");
+				$(".dataTables_filter input").addClass("bg-dark text-light");
+			} );
+		</script>
+		<script>
+			$(document).ready( function () {
+				$('.UserTable').DataTable({
+					order: [ [0, 'desc'] ]
+				});
+				$(".dataTables_length select").addClass("bg-dark text-light");
+				$(".dataTables_filter input").addClass("bg-dark text-light");
+			} );
+		</script>
+				<script src="/livewire/livewire.js?id=25f025805c3c370f7e87" data-turbo-eval="false" data-turbolinks-eval="false"></script><script data-turbo-eval="false" data-turbolinks-eval="false">window.livewire = new Livewire();window.Livewire = window.livewire;window.livewire_app_url = '';window.livewire_token = 'Hpu1YwekAie3WsJoIqxE0XegMR5C0lpvKmTqFr0j';window.deferLoadingAlpine = function (callback) {window.addEventListener('livewire:load', function () {callback();});};document.addEventListener("DOMContentLoaded", function () {window.livewire.start();});</script>
+	    
+    
+    <script src="//code.tidio.co/6oy7k8jxt0uaghlha54evuxdqivz805q.js" async></script>
+</body>
+</html>
+

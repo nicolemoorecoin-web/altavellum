@@ -1,0 +1,394 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block title %}Withdraw{% endblock %}
+
+{% block stylesheets %}
+<style>
+/* ====== WITHDRAW PAGE ====== */
+:root{
+  --bg:#0f1a23; --panel:#0e1b24; --ring:rgba(255,255,255,.12);
+  --ink:#d2a16d; --muted:#9fb0be; --text:#e9eef2; --accent:#b07131; --accent-ink:#1f1914; --ok:#64d394; --bad:#ff7b7b;
+}
+.wrap{background:var(--bg); min-height:calc(100vh - 80px); padding:1.25rem 1rem 3rem}
+@media (min-width:992px){ .wrap{padding:2rem 2rem 4rem} }
+.card{background:var(--panel); border:1px solid var(--ring); border-radius:22px; padding:1.25rem; box-shadow:0 6px 18px rgba(0,0,0,.25)}
+.kicker{color:#9fb0be; letter-spacing:.18em; font-size:.8rem; font-weight:800}
+.title{color:#f4e8d8; font-weight:900; letter-spacing:.08em; margin:.2rem 0 1rem}
+.subtle{color:var(--muted); font-weight:700}
+.h0{font-size:2.2rem; font-weight:900; color:#fff}
+.grid{display:grid; gap:1rem}
+@media (min-width:992px){ .grid-2{grid-template-columns:1.05fr 1fr} .grid-3{grid-template-columns:repeat(3,1fr)} }
+
+.input, select{
+  width:100%; background:#0a141b; border:1px solid var(--ring); color:var(--text);
+  padding:.75rem .9rem; border-radius:12px; outline:none;
+}
+label{display:block; color:#e9eef2; font-weight:700; letter-spacing:.04em; margin:.5rem 0 .35rem}
+.help{color:var(--muted); font-size:.85rem}
+
+.tabs{display:flex; gap:.5rem; flex-wrap:wrap}
+.tab{padding:.5rem .9rem; border:1px solid var(--ring); color:#e9eef2; border-radius:999px; cursor:pointer; background:#0a141b}
+.tab.active{background:#14222d; box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
+
+.warn{background:#2a0f0f; border:1px solid rgba(255,123,123,.35); color:#ffd1d1; border-radius:12px; padding:.75rem .9rem}
+.ok{color:var(--ok)}
+.bad{color:var(--bad)}
+
+.btn{display:inline-flex; align-items:center; gap:.5rem; border-radius:12px; padding:.75rem 1.2rem; font-weight:900; letter-spacing:.5px; cursor:pointer; border:2px solid transparent}
+.btn--solid{background:var(--accent); color:var(--accent-ink); border-color:rgba(0,0,0,.35)}
+.btn--hollow{background:transparent; color:#fff; border-color:rgba(255,255,255,.18)}
+.btn--ghost{background:transparent; color:#e9eef2}
+
+.table{width:100%; border-collapse:separate; border-spacing:0 10px}
+.table th{color:#cfd8df; font-weight:800; text-align:left; padding:.5rem .75rem}
+.table td{background:#0a141b; border:1px solid var(--ring); color:#e9eef2; padding:.8rem .9rem}
+.table tr td:first-child{border-top-left-radius:12px; border-bottom-left-radius:12px}
+.table tr td:last-child{border-top-right-radius:12px; border-bottom-right-radius:12px}
+
+.badge{font-size:.75rem; padding:.2rem .55rem; border-radius:999px; border:1px solid var(--ring); background:rgba(255,255,255,.06)}
+
+/* Modal */
+.modal-backdrop{position:fixed; inset:0; background:rgba(6,12,16,.7); display:none; align-items:center; justify-content:center; z-index:60}
+.modal{width:min(640px,92vw); background:var(--panel); border:1px solid var(--ring); border-radius:18px; padding:1.25rem}
+.modal.show{display:flex}
+.modal header{display:flex; align-items:center; justify-content:space-between; margin-bottom:.75rem}
+.modal h4{color:#f4e8d8; font-weight:900; letter-spacing:.05em}
+.row{display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:.6rem .75rem; border:1px dashed var(--ring); border-radius:12px}
+.row span:first-child{color:#9fb0be; font-weight:800; letter-spacing:.03em}
+.copy{cursor:pointer; font-size:.85rem; padding:.2rem .55rem; border-radius:8px; border:1px solid var(--ring)}
+</style>
+{% endblock stylesheets %}
+
+{% block content %}
+<div class="wrap">
+
+  <!-- balance strip + tabs -->
+  <section class="card" style="margin-bottom:1rem">
+    <div class="grid grid-3">
+      <div>
+        <div class="kicker">AVAILABLE</div>
+        <div class="h0">${{ user.accounts.account_balance|default:"0.00" }}</div>
+        <div class="subtle">Withdrawable today</div>
+      </div>
+      <div>
+        <div class="kicker">PENDING</div>
+        <div class="h0">${{ pending_withdrawals_total|default:"0.00" }}</div>
+        <div class="subtle">Awaiting confirmation</div>
+      </div>
+      <div>
+        <div class="kicker">METHOD</div>
+        <div class="tabs" id="wdTabs">
+          <span class="tab active" data-tab="crypto">Crypto</span>
+          <span class="tab" data-tab="bank">Bank</span>
+        </div>
+        <div class="subtle" style="margin-top:.35rem">Choose the payout method</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="grid grid-2">
+    <!-- Left: method forms -->
+    <div class="card">
+      <div class="kicker">WITHDRAW</div>
+      <h3 class="title">Request payout</h3>
+
+      <!-- CRYPTO FORM -->
+      <form method="post" id="cryptoForm" novalidate>
+        {% csrf_token %}
+        <input type="hidden" name="method" value="crypto">
+        <div class="badge">Crypto method</div>
+
+        <label>Asset</label>
+        <select class="input" name="cryptocurrency" id="wdCoin">
+          <option value="BTC">Bitcoin (BTC)</option>
+          <option value="ETH">Ethereum (ETH)</option>
+          <option value="USDT" selected>Tether (USDT)</option>
+        </select>
+
+        <label>Amount (USD)</label>
+        <input class="input" type="number" min="20" step="10" name="amount_in_USD" id="wdAmount" placeholder="e.g. 150">
+
+        <label>Wallet Address</label>
+        <input class="input" type="text" name="wallet_address" id="wdAddress" placeholder="Paste the destination address">
+
+        <label>Network (if applicable)</label>
+        <select class="input" name="network" id="wdNetwork">
+          <option value="TRC20" selected>TRC20</option>
+          <option value="ERC20">ERC20</option>
+          <option value="BTC">Bitcoin</option>
+        </select>
+
+        <div class="help">A 0.5% processing fee applies. Payouts typically complete within minutes after review.</div>
+
+        <div style="display:flex; gap:.6rem; margin-top:1rem; flex-wrap:wrap">
+          <button class="btn btn--solid" type="submit">Request Crypto Withdrawal</button>
+          <a class="btn btn--hollow" href="{% url 'deposit' %}">Need funds? Deposit</a>
+        </div>
+      </form>
+
+      <!-- BANK FORM -->
+      <form method="post" id="bankForm" style="display:none" novalidate>
+        {% csrf_token %}
+        <input type="hidden" name="method" value="bank">
+        <div class="badge">Bank method</div>
+
+        <label>Bank Name</label>
+        <input class="input" type="text" name="bank_name" placeholder="e.g. First National Bank">
+
+        <label>Account Holder</label>
+        <input class="input" type="text" name="account_name" value="{{ request.user.get_full_name|default:request.user.username }}">
+
+        <label>Account Number / IBAN</label>
+        <input class="input" type="text" name="account_number" placeholder="123456789 / IBAN">
+
+        <label>SWIFT / Routing</label>
+        <input class="input" type="text" name="swift_code" placeholder="SWIFT / routing">
+
+        <label>Amount (USD)</label>
+        <input class="input" type="number" min="50" step="10" name="amount_in_USD" id="bankAmount" placeholder="e.g. 500">
+
+        <div class="warn" style="margin-top:.8rem">Bank transfers can take 1–3 business days depending on your bank and region.</div>
+
+        <div style="display:flex; gap:.6rem; margin-top:1rem; flex-wrap:wrap">
+          <button class="btn btn--solid" type="submit">Request Bank Withdrawal</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Right: summary -->
+    <div class="card">
+      <div class="kicker">SUMMARY</div>
+      <h3 class="title">What you’ll receive</h3>
+      <div class="subtle" id="summary">Enter an amount to preview net payout after fees.</div>
+
+      <div style="margin-top:1rem" class="grid">
+        <div class="badge">Notes</div>
+        <div class="help">• Minimum crypto withdrawal: $20. Bank: $50.  
+          • Incorrect network or address may cause permanent loss.  
+          • For large payouts we may request additional verification.</div>
+      </div>
+
+      <div style="margin-top:1rem">
+        <div class="badge">Status</div>
+        <div class="subtle">Typical approval: <span class="ok">Fast</span> • Network time: varies</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- history -->
+  <section class="card" style="margin-top:1.1rem">
+    <div class="kicker">PENDING & HISTORY</div>
+    <h3 class="title">Your withdrawal requests</h3>
+    <div style="overflow:auto">
+      <table class="table" id="historyTable">
+        <thead>
+          <tr>
+            <th>Method</th><th>Amount</th><th>Destination</th><th>Status</th><th>Date</th>
+          </tr>
+        </thead>
+        <tbody id="historyBody">
+          {% for w in object_list %}
+            <tr>
+              <td>{{ w.method|default:w.withdrawal_method|default:"Crypto" }}</td>
+              <td>${{ w.amount_in_USD|default:w.amount|default:"0.00" }}</td>
+              <td style="max-width:320px; overflow:hidden; text-overflow:ellipsis">{{ w.wallet_address|default:w.account_number|default:"—" }}</td>
+              <td>{{ w.withdrawal_status|default:w.status|default:"Pending" }}</td>
+              <td>{{ w.date|default:w.created_at|date:"Y-m-d H:i" }}</td>
+            </tr>
+          {% empty %}
+            <tr><td colspan="5" class="help">No withdrawals yet.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+<!-- Receipt Modal -->
+<div class="modal-backdrop" id="receiptModal">
+  <div class="modal">
+    <header>
+      <h4>Withdrawal Request Created</h4>
+      <button class="btn btn--ghost" type="button" id="closeReceipt">Close</button>
+    </header>
+    <div class="grid" style="gap:.8rem" id="receiptBody">
+      <!-- rows injected by JS -->
+    </div>
+    <div style="display:flex; justify-content:flex-end; gap:.6rem; margin-top:1rem">
+      <a class="btn btn--hollow" href="{% url 'withdraw' %}">View All</a>
+      <button class="btn btn--solid" id="receiptOk" type="button">Done</button>
+    </div>
+  </div>
+</div>
+{% endblock content %}
+
+{% block javascripts %}
+<script>
+(function(){
+  /* ===== Tabs ===== */
+  const tabs = document.getElementById('wdTabs')?.querySelectorAll('.tab') || [];
+  const cryptoForm = document.getElementById('cryptoForm');
+  const bankForm   = document.getElementById('bankForm');
+  const summary    = document.getElementById('summary');
+  const wdAmount   = document.getElementById('wdAmount');
+  const bankAmount = document.getElementById('bankAmount');
+  const feeRate    = 0.005; // 0.5%
+
+  function setTab(which){
+    tabs.forEach(t=>t.classList.toggle('active', t.dataset.tab===which));
+    if (which==='crypto'){ cryptoForm.style.display='block'; bankForm.style.display='none'; }
+    else { cryptoForm.style.display='none'; bankForm.style.display='block'; }
+    calc();
+  }
+  tabs.forEach(t=> t.addEventListener('click', ()=> setTab(t.dataset.tab)));
+  setTab('crypto');
+
+  /* ===== Fee preview ===== */
+  function calc(){
+    const isCrypto = cryptoForm.style.display!=='none';
+    const amt = parseFloat((isCrypto?wdAmount:bankAmount)?.value || '0');
+    if (!amt){ summary.textContent = 'Enter an amount to preview net payout after fees.'; return; }
+    const fee = +(amt*feeRate).toFixed(2), net = +(amt - fee).toFixed(2);
+    summary.innerHTML = `Amount: <b>$${amt.toFixed(2)}</b> • Fee (0.5%): <b class="bad">-$${fee.toFixed(2)}</b> → You receive: <b class="ok">$${net.toFixed(2)}</b>`;
+  }
+  wdAmount?.addEventListener('input', calc);
+  bankAmount?.addEventListener('input', calc);
+
+  /* ===== AJAX helpers ===== */
+  const historyBody = document.getElementById('historyBody');
+  const receiptModal = document.getElementById('receiptModal');
+  const receiptBody = document.getElementById('receiptBody');
+  const closeReceipt = document.getElementById('closeReceipt');
+  const receiptOk = document.getElementById('receiptOk');
+
+  function csrfToken(form){
+    const t = form.querySelector('input[name=csrfmiddlewaretoken]');
+    return t ? t.value : '';
+  }
+  function openModal(){ receiptModal.classList.add('show'); }
+  function closeModal(){ receiptModal.classList.remove('show'); }
+
+  function copyableRow(label, value){
+    return `
+      <div class="row">
+        <span>${label}</span>
+        <span style="display:flex; align-items:center; gap:.5rem">
+          <b>${value || '—'}</b>
+          <button class="copy" type="button" data-copy="${(value||'').toString()}">Copy</button>
+        </span>
+      </div>`;
+  }
+
+  function bindCopy(){
+    receiptBody.querySelectorAll('.copy').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const txt = btn.getAttribute('data-copy') || '';
+        navigator.clipboard.writeText(txt);
+        btn.textContent = 'Copied';
+        setTimeout(()=>btn.textContent='Copy', 1200);
+      });
+    });
+  }
+
+  function appendRowToHistory(w){
+    const tr = document.createElement('tr');
+    const method = (w.method || w.withdrawal_method || 'Crypto');
+    const amount = (w.amount_in_USD || w.amount || 0).toFixed ? (w.amount_in_USD||w.amount) : parseFloat(w.amount_in_USD||w.amount||0);
+    const dest = w.wallet_address || w.account_number || '—';
+    const status = (w.withdrawal_status || w.status || 'Pending');
+    const dateStr = (w.date || w.created || w.created_at || new Date().toISOString()).toString().replace('T',' ').slice(0,16);
+    tr.innerHTML = `
+      <td>${method}</td>
+      <td>$${Number(amount||0).toFixed(2)}</td>
+      <td style="max-width:320px; overflow:hidden; text-overflow:ellipsis">${dest}</td>
+      <td>${status}</td>
+      <td>${dateStr}</td>`;
+    // remove "No withdrawals yet." row if present
+    const empty = historyBody.querySelector('tr td[colspan]');
+    if (empty) empty.remove();
+    historyBody.prepend(tr);
+  }
+
+  async function ajaxSubmit(form){
+    // client-side validation
+    const isCrypto = form.id === 'cryptoForm';
+    const amountEl = isCrypto ? document.getElementById('wdAmount') : document.getElementById('bankAmount');
+    const amount = parseFloat(amountEl?.value || '0');
+    if (isCrypto && (!amount || amount < 20)){ alert('Minimum crypto withdrawal is $20'); return; }
+    if (!isCrypto && (!amount || amount < 50)){ alert('Minimum bank withdrawal is $50'); return; }
+    if (isCrypto){
+      const addr = document.getElementById('wdAddress')?.value?.trim();
+      if (!addr){ alert('Please enter a wallet address'); return; }
+    }
+
+    const endpoint = "{% url 'withdraw' %}";
+    const fd = new FormData(form);
+    // hint to backend that we accept JSON; Django can check request.is_ajax() / header
+    const headers = {'X-Requested-With':'XMLHttpRequest', 'X-CSRFToken': csrfToken(form)};
+
+    try{
+      const res = await fetch(endpoint, {method:'POST', headers, body:fd, credentials:'same-origin'});
+      const text = await res.text();
+      let data = null;
+      try { data = JSON.parse(text); } catch(e){ /* non-JSON fallback */ }
+
+      if (!res.ok || !data){
+        // fallback to normal POST if backend doesn't return JSON
+        form.submit();
+        return;
+      }
+
+      // Build receipt
+      receiptBody.innerHTML = '';
+      const ref = data.reference || data.id || data.pk || Math.random().toString(36).slice(2,10).toUpperCase();
+      const method = data.method || (isCrypto?'Crypto':'Bank');
+      const net = (Number(data.net_amount)|| (amount - amount*0.005)).toFixed(2);
+      receiptBody.insertAdjacentHTML('beforeend', copyableRow('Reference', ref));
+      receiptBody.insertAdjacentHTML('beforeend', copyableRow('Method', method));
+      receiptBody.insertAdjacentHTML('beforeend', copyableRow('Amount (USD)', `$${Number(data.amount_in_USD||amount).toFixed(2)}`));
+      if (isCrypto){
+        receiptBody.insertAdjacentHTML('beforeend', copyableRow('Asset', data.cryptocurrency || document.getElementById('wdCoin').value));
+        receiptBody.insertAdjacentHTML('beforeend', copyableRow('Network', data.network || document.getElementById('wdNetwork').value));
+        receiptBody.insertAdjacentHTML('beforeend', copyableRow('Wallet Address', data.wallet_address || document.getElementById('wdAddress').value));
+      }else{
+        receiptBody.insertAdjacentHTML('beforeend', copyableRow('Bank', data.bank_name || form.querySelector('[name=bank_name]').value));
+        receiptBody.insertAdjacentHTML('beforeend', copyableRow('Account', data.account_number || form.querySelector('[name=account_number]').value));
+      }
+      receiptBody.insertAdjacentHTML('beforeend', `<div class="row"><span>Net after fee</span><b class="ok">$${net}</b></div>`);
+      bindCopy();
+      openModal();
+
+      // When user closes the receipt, add to table immediately
+      function onDone(){
+        appendRowToHistory({
+          method: method,
+          amount_in_USD: Number(data.amount_in_USD||amount),
+          wallet_address: data.wallet_address,
+          account_number: data.account_number,
+          status: 'Pending',
+          created: data.created || new Date().toISOString()
+        });
+        closeModal();
+        form.reset();
+        calc();
+        // clean listeners
+        receiptOk.removeEventListener('click', onDone);
+        closeReceipt.removeEventListener('click', onDone);
+      }
+      receiptOk.addEventListener('click', onDone);
+      closeReceipt.addEventListener('click', onDone);
+
+    }catch(err){
+      console.error(err);
+      // last-resort fallback:
+      form.submit();
+    }
+  }
+
+  /* Hook submit */
+  cryptoForm?.addEventListener('submit', (e)=>{ e.preventDefault(); ajaxSubmit(cryptoForm); });
+  bankForm?.addEventListener('submit', (e)=>{ e.preventDefault(); ajaxSubmit(bankForm); });
+})();
+</script>
+{% endblock javascripts %}

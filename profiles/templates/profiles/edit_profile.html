@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Edit profile</title></head>
+<body>
+  <h1>Edit profile</h1>
+  <form method="post">
+    {% csrf_token %}
+    <div><label>First name</label>
+      <input name="first_name" value="{{ request.user.first_name }}"></div>
+    <div><label>Last name</label>
+      <input name="last_name" value="{{ request.user.last_name }}"></div>
+    <div><label>Email</label>
+      <input type="email" name="email" value="{{ request.user.email }}"></div>
+    <div><label>Phone</label>
+      <input name="phone" value="{{ profile.phone|default_if_none:'' }}"></div>
+    <div><label>Country</label>
+      <input name="country" value="{{ profile.country|default_if_none:'' }}"></div>
+    <button type="submit">Save</button>
+  </form>
+
+  <p><a href="{% url 'user-home' %}">Back to dashboard</a></p>
+</body>
+</html>
