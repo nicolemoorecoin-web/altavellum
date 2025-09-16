@@ -2,7 +2,8 @@ services:
   - type: web
     name: altavellum
     env: python
-    buildCommand: "pip install -r requirements.txt"
+    build:
+      runtime: python-3.10
+      buildCommand: "pip install -r requirements.txt"
     startCommand: "gunicorn harmo.wsgi"
-    runtime: python-3.10
     autoDeploy: true
