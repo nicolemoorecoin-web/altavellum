@@ -10,3 +10,6 @@ services:
         python manage.py migrate
     startCommand: gunicorn harmo.wsgi
     autoDeploy: true
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: harmo.settings
