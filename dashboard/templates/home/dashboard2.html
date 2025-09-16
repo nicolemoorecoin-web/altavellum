@@ -1,17 +1,16 @@
 {% extends "layouts/base.html" %}
-{% load static %}
+{% load static humanize %}
 
 {% block title %}Dashboard{% endblock %}
 
 {% block stylesheets %}
 <style>
-  /* ====== Scoped dashboard styles (won’t leak globally) ====== */
   :root{
     --bg:#0f1a23;
-    --card:#b07131;         /* caramel/orange */
-    --card2:#152734;        /* blue/ink card */
-    --ink:#d2a16d;          /* warm heading */
-    --muted:#9fb0be;        /* soft label */
+    --card:#b07131;
+    --card2:#152734;
+    --ink:#d2a16d;
+    --muted:#9fb0be;
     --text:#e9eef2;
     --ring:rgba(255,255,255,.15);
   }
@@ -49,25 +48,17 @@
   .db-rows{display:grid; gap:1rem; grid-template-columns:1fr;}
   @media (min-width:992px){ .db-rows{grid-template-columns:1fr 1fr} }
 
-  /* Reusable panel */
   .db-panel{background:#0e1b24; border:1px solid var(--ring); border-radius:16px; padding:1rem}
   .db-panel h5{color:#f4e8d8; letter-spacing:.08em; font-weight:800; margin:.25rem 0 1rem}
 
-  /* ===== Capital Allocation (FIXED) ===== */
+  /* Allocation (fixed height, no jump) */
   .alloc-grid{display:grid; gap:1rem}
   @media (min-width:1024px){ .alloc-grid{grid-template-columns:1.2fr .8fr} }
-
   .alloc-wrap{
-    position:relative;        /* the canvas will fill this */
-    height:300px;             /* << fixed height prevents any jump */
-    border-radius:14px;
-    background:#0b1a22;
-    border:1px solid var(--ring);
-    padding:16px;
-    overflow:hidden;
+    position:relative; height:300px; border-radius:14px;
+    background:#0b1a22; border:1px solid var(--ring); padding:16px; overflow:hidden;
   }
   #allocChart{display:block; width:100% !important; height:100% !important;}
-
   .alloc-legend{
     background:#0b1a22; border:1px solid var(--ring);
     border-radius:14px; padding:14px; list-style:none; margin:0;
@@ -81,14 +72,6 @@
   .alloc-legend li + li{margin-top:.5rem}
   .cap-dot{width:10px; height:10px; border-radius:999px; display:inline-block; margin-right:.5rem}
 
-  /* Currency list */
-  .db-legend{display:flex; flex-direction:column; gap:.35rem; margin-top:.5rem; color:#e9eef2}
-  .db-legend span{display:flex; align-items:center; gap:.6rem}
-  .dot{height:.7rem; width:.7rem; border-radius:50%}
-  .btc{background:#f2b035}
-  .eth{background:#5271ff}
-  .stc{background:#3a9e8f}
-
   .curr-item{display:flex; align-items:center; justify-content:space-between;
     gap:.75rem; padding:.7rem .6rem; border-radius:12px; color:#e9eef2}
   .curr-item + .curr-item{border-top:1px dashed rgba(255,255,255,.08)}
@@ -96,7 +79,7 @@
   .curr-ic{height:34px; width:34px; display:grid; place-items:center; border-radius:50%;
     background:rgba(255,255,255,.06); border:1px solid var(--ring)}
   .curr-sym{font-weight:800; letter-spacing:.5px}
-  .curr-sub{font-size:.85rem; color:var(--muted)}
+  .curr-sub{font-size:.85rem; color:#9fb0be}
   .curr-val{font-weight:800}
   .curr-chg.up{color:#64d394}
   .curr-chg.down{color:#ff7b7b}
@@ -123,121 +106,85 @@
     </label>
     <div class="db-lang" style="gap:.4rem">
       <img src="{% static 'assets/img/avatar-default.png' %}" alt="" style="height:24px;width:24px;border-radius:50%">
-      <span>{{ request.user.username|default:"User" }}</span>
+      <span>{{ request.user.first_name|default:request.user.username|default:"User" }}</span>
     </div>
   </div>
 
   <!-- Welcome -->
   <div style="color:#c9d6df; font-size:1.25rem; margin:.25rem 0 1rem">
-    Welcome back, {{ request.user.first_name|default:"Lucy" }}!
+    Welcome back, {{ request.user.first_name|default:request.user.username|default:"User" }}!
   </div>
 
-  <!-- Balance -->
+  <!-- Balance (dynamic) -->
   <section class="db-card db-card--balance" style="margin-bottom:1rem">
     <div class="db-label">Available Balance</div>
     <div class="db-h0" style="margin:.2rem 0 .2rem">
-      {{ balance_usd|default:"36,408.21" }} <span style="font-size:1.4rem">USD</span>
+      {{ balance|floatformat:2|intcomma }} <span style="font-size:1.4rem">USD</span>
     </div>
-    <div class="db-sub">≈ {{ balance_btc|default:"0.35000261" }} BTC</div>
+    {% if balance_btc %}
+      <div class="db-sub">≈ {{ balance_btc }} BTC</div>
+    {% endif %}
 
     <div class="db-actions">
-      <a class="db-btn" href="/dashboard/plans/">INVEST</a>
-      <a class="db-btn" href="/dashboard/deposit/">DEPOSIT</a>
-      <a class="db-btn" href="/dashboard/withdraw/">WITHDRAW</a>
+      <a class="db-btn" href="{% url 'plans' %}">INVEST</a>
+      <a class="db-btn" href="{% url 'deposit' %}">DEPOSIT</a>
+      <a class="db-btn" href="{% url 'withdraw' %}">WITHDRAW</a>
     </div>
   </section>
 
-  <!-- Stats -->
+  <!-- Stats (dynamic) -->
   <section class="db-card db-card--stats" style="margin-bottom:1rem">
     <div class="db-rows">
       <div>
         <div class="db-label">Total Profit</div>
-        <div class="db-h1" style="margin-top:.25rem">{{ total_profit|default:"26,416.02" }}</div>
+        <div class="db-h1" style="margin-top:.25rem">
+          {{ profit_total|floatformat:2|intcomma }}
+        </div>
       </div>
       <div>
         <div class="db-label">Total Deposit</div>
-        <div class="db-h1" style="margin-top:.25rem">{{ total_deposit|default:"8,050.08" }}</div>
+        <div class="db-h1" style="margin-top:.25rem">
+          {{ deposit_total|floatformat:2|intcomma }}
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Allocation + Currency balances -->
   <section class="db-grid">
-    <!-- LEFT: Capital Allocation (fixed, no jump) -->
+    <!-- LEFT: Capital Allocation -->
     <div class="db-panel">
       <h5>CAPITAL ALLOCATION</h5>
-
       <div class="alloc-grid">
-        <!-- donut -->
         <div class="alloc-wrap">
           <canvas id="allocChart"></canvas>
         </div>
-
-        <!-- legend (custom, not the default that appends below) -->
         <ul id="allocLegend" class="alloc-legend"></ul>
       </div>
     </div>
 
-    <!-- RIGHT: Currency balances (unchanged) -->
-    <div class="db-panel">
-      <h5>CURRENCY BALANCES</h5>
+    <!-- RIGHT: Currency balances -->
+   <div class="db-panel">
+  <h5>CURRENCY BALANCES</h5>
 
-      <div class="curr-item">
-        <div class="curr-l">
-          <div class="curr-ic">₿</div>
-          <div>
-            <div class="curr-sym">BTC</div>
-            <div class="curr-sub">$84,000</div>
-          </div>
-        </div>
-        <div style="text-align:right">
-          <div class="curr-val">1.2456</div>
-          <div class="curr-chg up">↑ $84,000</div>
+  {% for c in currency_rows %}
+    <div class="curr-item">
+      <div class="curr-l">
+        <div class="curr-ic">{{ c.symbol|first }}</div>
+        <div>
+          <div class="curr-sym">{{ c.symbol }}</div>
+          <div class="curr-sub">${{ c.usd|floatformat:2 }}</div>
         </div>
       </div>
-
-      <div class="curr-item">
-        <div class="curr-l">
-          <div class="curr-ic">◆</div>
-          <div>
-            <div class="curr-sym">ETH</div>
-            <div class="curr-sub">$22,500</div>
-          </div>
-        </div>
-        <div style="text-align:right">
-          <div class="curr-val">12.58</div>
-          <div class="curr-chg down">↓ 0.5%</div>
-        </div>
-      </div>
-
-      <div class="curr-item">
-        <div class="curr-l">
-          <div class="curr-ic">T</div>
-          <div>
-            <div class="curr-sym">USDT</div>
-            <div class="curr-sub">$10,000</div>
-          </div>
-        </div>
-        <div style="text-align:right">
-          <div class="curr-val">10.000</div>
-          <div class="curr-chg up">↑ 0.1%</div>
-        </div>
-      </div>
-
-      <div class="curr-item">
-        <div class="curr-l">
-          <div class="curr-ic">◈</div>
-          <div>
-            <div class="curr-sym">ADA</div>
-            <div class="curr-sub">$2,500</div>
-          </div>
-        </div>
-        <div style="text-align:right">
-          <div class="curr-val">8.000</div>
-          <div class="curr-chg up">↑ 2.3%</div>
-        </div>
+      <div style="text-align:right">
+        <div class="curr-val">${{ c.usd|floatformat:2 }}</div>
+        <div class="curr-chg up"> </div>
       </div>
     </div>
+  {% empty %}
+    <div class="help">No funded assets yet.</div>
+  {% endfor %}
+</div>
   </section>
 </div>
 {% endblock content %}
@@ -245,28 +192,27 @@
 {% block javascripts %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1"></script>
 <script>
-  // Sidebar toggle (compatible with Soft UI)
+  // Sidebar toggle (Soft UI)
   document.getElementById('dbToggle')?.addEventListener('click', () => {
     document.body.classList.toggle('g-sidenav-pinned');
   });
 
-  // Capital Allocation (no layout shift)
+  // Capital Allocation (dynamic)
   (function(){
     const el = document.getElementById('allocChart');
     if(!el) return;
 
-    // If you have dynamic values from Django, replace the arrays below:
-    const labels = ['Bitcoin','Ethereum','Stablecoins'];
-    const values = [45, 30, 15];
-    const colors = ['#D08B2F','#3862F5','#1FA386']; // gold, blue, teal
+    const labels = {{ alloc_labels_json|default:"[]"|safe }};
+    const values = {{ alloc_values_json|default:"[]"|safe }};
+    const colors = {{ alloc_colors_json|default:"[]"|safe }};
 
     const chart = new Chart(el.getContext('2d'), {
       type: 'doughnut',
       data: { labels, datasets: [{ data: values, backgroundColor: colors, borderWidth:0, cutout:'62%' }]},
       options: {
         responsive: true,
-        maintainAspectRatio: false,   // fill the fixed-height wrapper
-        animation: { duration: 0 },   // render instantly (prevents “slide”)
+        maintainAspectRatio: false,
+        animation: { duration: 0 },
         plugins: { legend: { display: false }, tooltip: {
           backgroundColor:'rgba(10,20,27,.95)',
           borderColor:'rgba(255,255,255,.12)', borderWidth:1, padding:10,
@@ -275,17 +221,20 @@
       }
     });
 
-    // Custom legend (so nothing is added under the canvas)
+    // Custom legend list
     const legend = document.getElementById('allocLegend');
-    legend.innerHTML = labels.map((label,i)=>`
-      <li>
-        <div class="flex items-center">
-          <span class="cap-dot" style="background:${colors[i]}"></span>
-          <span>${label}</span>
-        </div>
-        <strong>${values[i]}%</strong>
-      </li>
-    `).join('');
+    if (legend) {
+      legend.innerHTML = labels.map((label,i)=>`
+        <li>
+          <div class="flex items-center">
+            <span class="cap-dot" style="background:${colors[i]||'#777'}"></span>
+            <span>${label}</span>
+          </div>
+          <strong>${values[i] ?? 0}%</strong>
+        </li>
+      `).join('') || '<li><span>No data yet</span><strong>0%</strong></li>';
+    }
   })();
 </script>
+
 {% endblock javascripts %}

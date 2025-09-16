@@ -1,23 +1,123 @@
-<!doctype html>
-<html>
-<head><meta charset="utf-8"><title>Edit profile</title></head>
-<body>
-  <h1>Edit profile</h1>
-  <form method="post">
-    {% csrf_token %}
-    <div><label>First name</label>
-      <input name="first_name" value="{{ request.user.first_name }}"></div>
-    <div><label>Last name</label>
-      <input name="last_name" value="{{ request.user.last_name }}"></div>
-    <div><label>Email</label>
-      <input type="email" name="email" value="{{ request.user.email }}"></div>
-    <div><label>Phone</label>
-      <input name="phone" value="{{ profile.phone|default_if_none:'' }}"></div>
-    <div><label>Country</label>
-      <input name="country" value="{{ profile.country|default_if_none:'' }}"></div>
-    <button type="submit">Save</button>
-  </form>
+{% extends "layouts/base.html" %}
+{% load static %}
 
-  <p><a href="{% url 'user-home' %}">Back to dashboard</a></p>
-</body>
-</html>
+{% block title %}Edit profile{% endblock %}
+
+{% block stylesheets %}
+<style>
+:root{
+  --bg:#0f1a23; --panel:#0e1b24; --ring:rgba(255,255,255,.12);
+  --ink:#d2a16d; --muted:#9fb0be; --text:#e9eef2; --accent:#b07131; --accent-ink:#1f1914;
+}
+.wrap{background:var(--bg); min-height:calc(100vh - 80px); padding:1.5rem 1rem 3rem}
+@media (min-width:992px){ .wrap{padding:2rem 2rem 4rem} }
+
+.card{background:var(--panel); border:1px solid var(--ring); border-radius:22px; padding:1.25rem; box-shadow:0 6px 18px rgba(0,0,0,.25)}
+.card--accent{background:var(--accent); color:var(--accent-ink)}
+.kicker{color:#9fb0be; letter-spacing:.18em; font-size:.8rem; font-weight:800}
+.title{color:#f4e8d8; font-weight:900; letter-spacing:.08em; margin:.2rem 0 1rem}
+.h0{font-size:2.0rem; font-weight:900; color:#fff}
+.subtle{color:var(--muted); font-weight:700}
+
+.grid{display:grid; gap:1rem}
+@media (min-width:992px){ .grid-2{grid-template-columns:1.1fr 1fr} }
+
+label{display:block; color:#e9eef2; font-weight:700; letter-spacing:.04em; margin:.5rem 0 .35rem}
+.input{
+  width:100%; background:#0a141b; border:1px solid var(--ring); color:var(--text);
+  padding:.75rem .9rem; border-radius:12px; outline:none;
+}
+.row2{display:grid; gap:.8rem}
+@media (min-width:768px){ .row2{grid-template-columns:1fr 1fr} }
+
+.btn{display:inline-flex; align-items:center; gap:.5rem; border-radius:12px; padding:.75rem 1.2rem; font-weight:900; letter-spacing:.5px; cursor:pointer; border:2px solid transparent}
+.btn--solid{background:var(--accent); color:var(--accent-ink); border-color:rgba(0,0,0,.35)}
+.btn--hollow{background:transparent; color:#fff; border-color:rgba(255,255,255,.18)}
+
+.alert{background:#0b1a22; border:1px solid var(--ring); color:#e9eef2; border-radius:12px; padding:.7rem .9rem; margin-bottom:.9rem}
+.success{border-color:rgba(100,211,148,.35)}
+</style>
+{% endblock stylesheets %}
+
+{% block content %}
+<div class="wrap">
+
+  <!-- Header -->
+  <section class="card card--accent" style="margin-bottom:1rem">
+    <div class="grid">
+      <div>
+        <div class="kicker">PROFILE</div>
+        <h1 class="h0">Edit profile</h1>
+        <div class="subtle">Update your account details and contact information.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Flash messages -->
+  <div style="max-width:920px; margin:0 auto">
+    {% if messages %}
+      {% for m in messages %}
+        <div class="alert success">{{ m }}</div>
+      {% endfor %}
+    {% endif %}
+  </div>
+
+  <!-- Content -->
+  <section class="grid grid-2" style="max-width:920px; margin:0 auto">
+    <!-- Left: form -->
+    <form method="post" class="card" autocomplete="off" novalidate>
+      {% csrf_token %}
+      <div class="kicker">ACCOUNT</div>
+      <h3 class="title">Basic info</h3>
+
+      <div class="row2">
+        <div>
+          <label for="first_name">First name</label>
+          <input id="first_name" class="input" type="text" name="first_name" value="{{ first_name }}">
+        </div>
+        <div>
+          <label for="last_name">Last name</label>
+          <input id="last_name" class="input" type="text" name="last_name" value="{{ last_name }}">
+        </div>
+      </div>
+
+      <label for="email">Email</label>
+      <input id="email" class="input" type="email" name="email" value="{{ email }}">
+
+      <div class="kicker" style="margin-top:1rem">CONTACT</div>
+      <h3 class="title">Details</h3>
+
+      <div class="row2">
+        <div>
+          <label for="phone">Phone</label>
+          <input id="phone" class="input" type="text" name="phone" value="{{ phone }}" placeholder="+1 555 123 4567">
+        </div>
+        <div>
+          <label for="country">Country</label>
+          <input id="country" class="input" type="text" name="country" value="{{ country }}" placeholder="e.g. United States">
+        </div>
+      </div>
+
+      <div style="display:flex; gap:.6rem; margin-top:1.1rem; flex-wrap:wrap">
+        <button class="btn btn--solid" type="submit">Save changes</button>
+        <a class="btn btn--hollow" href="{% url 'user-home' %}">Back to dashboard</a>
+      </div>
+    </form>
+
+    <!-- Right: quick tips / links -->
+    <div class="card">
+      <div class="kicker">TIPS</div>
+      <h3 class="title">Keep your account secure</h3>
+      <ul style="color:#cfd6dc; line-height:1.6; padding-left:1.2rem; margin:0">
+        <li>Use a strong, unique password.</li>
+        <li>Keep your email up to date for recovery.</li>
+        <li>Never share 2FA codes or private keys.</li>
+      </ul>
+
+      <div style="margin-top:1.25rem">
+        <a class="btn btn--hollow" href="{% url 'password_change' %}">Change password</a>
+      </div>
+    </div>
+  </section>
+</div>
+{% endblock content %}

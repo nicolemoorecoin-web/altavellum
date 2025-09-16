@@ -1,38 +1,36 @@
 from pathlib import Path
 import os
 
-# --- Paths
+# ----- Paths
 BASE_DIR = Path(__file__).resolve().parent.parent
-CORE_DIR = str(BASE_DIR)  # you referenced this in templates/static
 
-# --- Security (dev only)
-SECRET_KEY = "dev-secret-key-not-for-production"
-DEBUG = True
-ALLOWED_HOSTS = ["127.0.0.1", "localhost", "FiscroFinance.org", "www.FiscroFinance.org"]
+# ----- Security (dev only)
+SECRET_KEY = os.environ.get('SECRET_KEY', 'fallback-key')
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+ALLOWED_HOSTS = ['.onrender.com', 'localhost']
 
-# --- Applications
+# ----- Apps
 INSTALLED_APPS = [
-    # Django core
+    # Django
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-
-    # Extras
-    "django.contrib.humanize",  # so {% load humanize %} works
+    "django.contrib.humanize",
 
     # Your apps
     "major",
     "profiles",
     "dashboard.home",
-    "dashboard.app",
+    "dashboard.app",   # <-- keep this
 ]
 
+# ----- Middleware
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",  # okay in dev too
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -43,12 +41,14 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "harmo.urls"
 
-# --- Templates
-TEMPLATE_DIR = os.path.join(CORE_DIR, "dashboard", "templates")
+# ----- Templates (both marketing & dashboard)
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [TEMPLATE_DIR],
+        "DIRS": [
+            BASE_DIR / "major" / "templates",         # public site
+            BASE_DIR / "dashboard" / "templates",     # dashboard
+        ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -63,15 +63,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "harmo.wsgi.application"
 
-# --- Database (local dev)
+# ----- Database
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
+    "default": {"ENGINE": "django.db.backends.sqlite3", "NAME": BASE_DIR / "db.sqlite3"}
 }
 
-# --- Password validation (keep defaults)
+# ----- Password validation
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
@@ -79,30 +76,34 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
-# --- I18N
+# ----- I18N
 LANGUAGE_CODE = "en-us"
 TIME_ZONE = "UTC"
 USE_I18N = True
 USE_TZ = True
 
-# --- Static / Media
+# ----- Static / Media
 STATIC_URL = "/static/"
-STATICFILES_DIRS = (
-    os.path.join(CORE_DIR, "dashboard", "static"),
-)
-STATIC_ROOT = None  # not used in dev
-STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
+_static_dirs = [
+    BASE_DIR / "dashboard" / "static",
+    BASE_DIR / "major" / "static",  # harmless if missing; filtered below
+]
+STATICFILES_DIRS = [p for p in _static_dirs if p.exists()]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(CORE_DIR, "media")
+MEDIA_ROOT = BASE_DIR / "media"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# --- Auth redirects
+# ----- Auth redirects
 LOGIN_URL = "/accounts/login/"
-LOGIN_REDIRECT_URL = "user-home"
-LOGOUT_REDIRECT_URL = "home"
+LOGIN_REDIRECT_URL = "user-home"   # after login -> dashboard
+LOGOUT_REDIRECT_URL = "home"       # after logout -> marketing homepage
 
-# --- Email (dev-friendly; adjust as needed)
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-DEFAULT_FROM_EMAIL = "noreply@example.com"
+# Optional (helps when you later serve over HTTPS on your domain)
+CSRF_TRUSTED_ORIGINS = [
+    "https://FiscroFinance.org",
+    "https://www.FiscroFinance.org",
+]
