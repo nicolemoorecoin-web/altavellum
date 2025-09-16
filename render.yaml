@@ -4,6 +4,9 @@ services:
     env: python
     build:
       runtime: python-3.10
-      buildCommand: "pip install -r requirements.txt"
-    startCommand: "gunicorn harmo.wsgi"
+      buildCommand: |
+        pip install -r requirements.txt
+        python manage.py collectstatic --noinput
+        python manage.py migrate
+    startCommand: gunicorn harmo.wsgi
     autoDeploy: true
