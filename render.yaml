@@ -2,10 +2,11 @@ services:
   - type: web
     name: altavellum
     env: python
-    build:
-      runtime: python-3.11.9
-      buildCommand: |
-        pip install -r requirements.txt
-        python manage.py collectstatic --noinput
-    startCommand: gunicorn harmo.wsgi
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn harmo.wsgi:application"
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: harmo.settings
     autoDeploy: true
+    build:
+      runtime: python-3.10
