@@ -121,7 +121,7 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # WhiteNoise storage (if you ever see "Missing staticfiles manifest entry",
 # temporarily switch to CompressedStaticFilesStorage to diagnose)
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
