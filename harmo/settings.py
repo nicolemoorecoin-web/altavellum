@@ -112,6 +112,7 @@ USE_TZ = True
 STATIC_URL = "/static/"
 # locations inside your repo to collect from (only if they exist)
 _static_dirs = [
+    BASE_DIR / "static", 
     BASE_DIR / "dashboard" / "static",
     BASE_DIR / "major" / "static",
 ]
