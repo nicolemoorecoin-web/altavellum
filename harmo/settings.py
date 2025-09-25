@@ -71,11 +71,14 @@ USE_TZ = True
 # ---------- Static & Media
 STATIC_URL = "/static/"
 
+
+
 STATICFILES_DIRS = [p for p in [
-    BASE_DIR / "static",            # project-level
-    BASE_DIR / "dashboard" / "static",
+    BASE_DIR / "static",                 # project-level (optional)
+    BASE_DIR / "dashboard" / "static",   # because 'dashboard' is a package, not an app root
     BASE_DIR / "major" / "static",
 ] if p.exists()]
+
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
@@ -85,8 +88,10 @@ STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
 
+
 # hashed filenames + gzip/brotli; fails build if a CSS url() is missing
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
+
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
