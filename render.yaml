@@ -3,10 +3,10 @@ services:
     name: altavellum
     env: python
     runtime: python-3.11.9
-    buildCommand: |
-      pip install -r requirements.txt
-      python manage.py collectstatic --noinput
-      python manage.py migrate --noinput
+   buildCommand: |
+  pip install -r requirements.txt
+  python manage.py collectstatic --noinput --verbosity 2
+  python manage.py migrate --noinput
     startCommand: gunicorn harmo.wsgi:application
     autoDeploy: true
     envVars:
