@@ -90,7 +90,7 @@ STATICFILES_FINDERS = [
 
 
 # hashed filenames + gzip/brotli; fails build if a CSS url() is missing
-STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 
 MEDIA_URL = "/media/"
