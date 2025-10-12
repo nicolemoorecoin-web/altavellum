@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: altavellum-app            # ← any name you like
+    env: python
+    plan: free                  # or starter
+    buildCommand: |
+      pip install -r requirements.txt
+      python manage.py collectstatic --noinput
+      python manage.py migrate
+    startCommand: |
+      gunicorn harmo.wsgi:application --log-file -
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12
+      - key: DJANGO_SETTINGS_MODULE
+        value: harmo.settings
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: "False"
+      # add these after Render gives you the hostname (see Step 4)
+      - key: ALLOWED_HOSTS
+        value: 127.0.0.1,localhost
+      - key: CSRF_TRUSTED_ORIGINS
+        value: https://altavellum.onrender.com
+      # if you create a Postgres on Render, it will inject DATABASE_URL automatically
