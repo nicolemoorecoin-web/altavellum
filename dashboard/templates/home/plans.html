@@ -29,22 +29,25 @@
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
     <!-- STARTER -->
-    <div x-data="{open:false}" class="card rounded-xl shadow-lg border border-slate-200 dark:border-navy-600 bg-white dark:bg-navy-900 overflow-hidden">
-      <div class="p-6 text-center">
-        <div class="mx-auto h-16 w-16 rounded-full bg-gradient-to-br from-amber-400 to-orange-600 opacity-90"></div>
-        <h3 class="mt-5 text-xl font-semibold text-slate-800 dark:text-navy-50">Starter Plan</h3>
-        <p class="mt-1 text-slate-600 dark:text-navy-200">Our unique entry plan for first-time investors.</p>
-        <p class="mt-4 text-lg font-bold text-amber-600">$1,000 – $4,999</p>
-        <ul class="mt-4 space-y-2 text-sm text-slate-600 dark:text-navy-200 text-left inline-block">
-          <li>• 10% ROI weekly</li>
-          <li>• 5% referral bonus</li>
-          <li>• Trading 5 days/week</li>
-        </ul>
-        <button @click="open=true"
-          class="btn mt-6 w-full rounded-full bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus">
-          Choose Plan
-        </button>
-      </div>
+<!-- STARTER -->
+<div class="card rounded-xl shadow-lg border border-slate-200 dark:border-navy-600 bg-white dark:bg-navy-900 overflow-hidden">
+  <div class="p-6 text-center">
+    <div class="mx-auto h-16 w-16 rounded-full bg-gradient-to-br from-amber-400 to-orange-600 opacity-90"></div>
+    <h3 class="mt-5 text-xl font-semibold text-slate-800 dark:text-navy-50">Starter Plan</h3>
+    <p class="mt-1 text-slate-600 dark:text-navy-200">Our unique entry plan for first-time investors.</p>
+    <p class="mt-4 text-lg font-bold text-amber-600">$1,000 &ndash; $4,999</p>
+    <ul class="mt-4 space-y-2 text-sm text-slate-600 dark:text-navy-200 text-left inline-block">
+      <li>&bull; 10% ROI weekly</li>
+      <li>&bull; 5% referral bonus</li>
+      <li>&bull; Trading 5 days/week</li>
+    </ul>
+<a href="{% url 'invest-start' %}?plan=starter"
+   class="btn mt-6 w-full rounded-full bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus">
+  Choose Plan
+</a>
+  </div>
+</div>
+
 
       <!-- Modal -->
       <template x-teleport="#x-teleport-target">
@@ -127,22 +130,23 @@
     </div>
 
     <!-- PREMIUM -->
-    <div x-data="{open:false}" class="card rounded-xl shadow-lg border border-slate-200 dark:border-navy-600 bg-white dark:bg-navy-900 overflow-hidden">
-      <div class="p-6 text-center">
-        <div class="mx-auto h-16 w-16 rounded-full bg-gradient-to-br from-amber-400 to-orange-600 opacity-90"></div>
-        <h3 class="mt-5 text-xl font-semibold text-slate-800 dark:text-navy-50">Premium Plan</h3>
-        <p class="mt-1 text-slate-600 dark:text-navy-200">For growing portfolios and mini businesses.</p>
-        <p class="mt-4 text-lg font-bold text-amber-600">$5,000 – $29,000</p>
-        <ul class="mt-4 space-y-2 text-sm text-slate-600 dark:text-navy-200 text-left inline-block">
-          <li>• 25% ROI weekly</li>
-          <li>• 7% referral bonus</li>
-          <li>• Trading 5 days/week</li>
-        </ul>
-        <button @click="open=true"
-          class="btn mt-6 w-full rounded-full bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus">
-          Choose Plan
-        </button>
-      </div>
+<!-- PREMIUM -->
+<div class="card rounded-xl shadow-lg border border-slate-200 dark:border-navy-600 bg-white dark:bg-navy-900 overflow-hidden">
+  <div class="p-6 text-center">
+    <div class="mx-auto h-16 w-16 rounded-full bg-gradient-to-br from-amber-400 to-orange-600 opacity-90"></div>
+    <h3 class="mt-5 text-xl font-semibold text-slate-800 dark:text-navy-50">Premium Plan</h3>
+    <p class="mt-1 text-slate-600 dark:text-navy-200">For growing portfolios and mini businesses.</p>
+    <p class="mt-4 text-lg font-bold text-amber-600">$5,000 &ndash; $29,000</p>
+    <ul class="mt-4 space-y-2 text-sm text-slate-600 dark:text-navy-200 text-left inline-block">
+      <li>&bull; 25% ROI weekly</li>
+      <li>&bull; 7% referral bonus</li>
+      <li>&bull; Trading 5 days/week</li>
+    </ul>
+
+    <a href="{% url 'invest-start' %}?plan=premium" class="btn mt-6 w-full rounded-full bg-primary font-medium text-white">Choose Plan</a>
+  </div>
+</div>
+
 
       <!-- Modal -->
       <template x-teleport="#x-teleport-target">
@@ -222,22 +226,23 @@
     </div>
 
     <!-- PARTNERSHIP -->
-    <div x-data="{open:false}" class="card rounded-xl shadow-lg border border-slate-200 dark:border-navy-600 bg-white dark:bg-navy-900 overflow-hidden">
-      <div class="p-6 text-center">
-        <div class="mx-auto h-16 w-16 rounded-full bg-gradient-to-br from-amber-400 to-orange-600 opacity-90"></div>
-        <h3 class="mt-5 text-xl font-semibold text-slate-800 dark:text-navy-50">Partnership</h3>
-        <p class="mt-1 text-slate-600 dark:text-navy-200">For large allocations and partnerships.</p>
-        <p class="mt-4 text-lg font-bold text-amber-600">$100,000 – $1,000,000</p>
-        <ul class="mt-4 space-y-2 text-sm text-slate-600 dark:text-navy-200 text-left inline-block">
-          <li>• 50% ROI weekly</li>
-          <li>• 25% referral bonus</li>
-          <li>• Trading 5 days/week</li>
-        </ul>
-        <button @click="open=true"
-          class="btn mt-6 w-full rounded-full bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus">
-          Choose Plan
-        </button>
-      </div>
+<!-- PARTNERSHIP -->
+<div class="card rounded-xl shadow-lg border border-slate-200 dark:border-navy-600 bg-white dark:bg-navy-900 overflow-hidden">
+  <div class="p-6 text-center">
+    <div class="mx-auto h-16 w-16 rounded-full bg-gradient-to-br from-amber-400 to-orange-600 opacity-90"></div>
+    <h3 class="mt-5 text-xl font-semibold text-slate-800 dark:text-navy-50">Partnership</h3>
+    <p class="mt-1 text-slate-600 dark:text-navy-200">For large allocations and partnerships.</p>
+    <p class="mt-4 text-lg font-bold text-amber-600">$100,000 &ndash; $1,000,000</p>
+    <ul class="mt-4 space-y-2 text-sm text-slate-600 dark:text-navy-200 text-left inline-block">
+      <li>&bull; 50% ROI weekly</li>
+      <li>&bull; 25% referral bonus</li>
+      <li>&bull; Trading 5 days/week</li>
+    </ul>
+
+    <a href="{% url 'invest-start' %}?plan=business" class="btn mt-6 w-full rounded-full bg-primary font-medium text-white">Choose Plan</a>
+  </div>
+</div>
+
 
       <!-- Modal -->
       <template x-teleport="#x-teleport-target">

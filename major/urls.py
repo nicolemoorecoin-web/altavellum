@@ -1,12 +1,14 @@
 from django.urls import path
-from .views import OverviewView, HomeView, AboutView, contact, FaqView # ServiceView # PlanView, ServicesView, RoleView, ContactView
+from . import views
 
 urlpatterns = [
-    path('', HomeView.as_view(), name='home'),
-  #  path('<str:ref_code>/', Home_View, name='home'),
-    #path('', HomeView.as_view(), name='home'),
-    path('about/', AboutView.as_view(), name='about'),
-    path('faq/', FaqView.as_view(), name='faq'),
-    path('overview/', OverviewView.as_view(), name='trading'),
-    path('contact/', contact, name='contact'),
+    path("", views.HomeView.as_view(), name="home"),
+    path("dashboard/user/", views.user_home, name="user-home"),
+    path("about/", views.AboutView.as_view(), name="about"),
+    path("faq/", views.FaqView.as_view(), name="faq"),
+    path("overview/", views.OverviewView.as_view(), name="trading"),
+    path("plans/", views.PlansView.as_view(), name="plans"),  # <-- now valid
+    path("contact/", views.contact, name="contact"),
+    path("invest/start/", views.invest_start, name="invest-start"),
+     path("dashboard/withdraw/", views.withdraw, name="withdraw"),
 ]
