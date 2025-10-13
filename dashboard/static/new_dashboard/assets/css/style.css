@@ -9764,7 +9764,7 @@ ul.logo-list {
 
 .bot-img {
   position: relative;
-  background: url(../../assets/images/404/bot_img.png) no-repeat center;
+  background: url(../assets/images/404/bot_img.png) no-repeat center;
   background-size: contain;
   width: 100%;
   max-width: 35.875rem;
@@ -9772,7 +9772,7 @@ ul.logo-list {
   margin: 0 auto 1.25rem; }
   .bot-img .oops {
     position: absolute;
-    background: url(../../assets/images/404/oops.png) no-repeat center right;
+    background: url(../assets/images/404/oops.png) no-repeat center right;
     background-size: contain;
     width: 19%;
     height: 18%;
@@ -9780,7 +9780,7 @@ ul.logo-list {
     top: -6%; }
   .bot-img .sorry {
     position: absolute;
-    background: url(../../assets/images/404/sorry_i_could_not_find_it.png) no-repeat center right;
+    background: url(../assets/images/404/sorry_i_could_not_find_it.png) no-repeat center right;
     background-size: contain;
     width: 20%;
     height: 20%;
