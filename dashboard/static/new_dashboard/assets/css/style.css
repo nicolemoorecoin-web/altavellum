@@ -9764,7 +9764,7 @@ ul.logo-list {
 
 .bot-img {
   position: relative;
-  background: url(../assets/images/404/bot_img.png) no-repeat center;
+ background: url(../images/404/bot_img.png) no-repeat center;
   background-size: contain;
   width: 100%;
   max-width: 35.875rem;
@@ -9772,7 +9772,7 @@ ul.logo-list {
   margin: 0 auto 1.25rem; }
   .bot-img .oops {
     position: absolute;
-    background: url(../assets/images/404/oops.png) no-repeat center right;
+    background: url(../images/404/oops.png) no-repeat center;
     background-size: contain;
     width: 19%;
     height: 18%;
@@ -9780,7 +9780,7 @@ ul.logo-list {
     top: -6%; }
   .bot-img .sorry {
     position: absolute;
-    background: url(../assets/images/404/sorry_i_could_not_find_it.png) no-repeat center right;
+    background: url(../images/404/sorry_i_could_not_find_it.png) no-repeat center;
     background-size: contain;
     width: 20%;
     height: 20%;
@@ -10008,7 +10008,7 @@ ul.logo-list {
   position: relative; }
   .exclaimatory-text:before {
     content: "";
-    background: url(../../assets/images/exclaimatory-sign.png) center;
+    background: url(../../images/exclaimatory-sign.png) center;
     background-repeat: no-repeat;
     width: 1.8125rem;
     height: 1.8125rem;
@@ -10989,7 +10989,7 @@ figure.table table {
     margin-bottom: 1.5625rem; }
 
 .card.mobile-cta-card {
-  background: url(../../assets/images/world-bg.png) no-repeat bottom right #000000;
+  background: url(../../images/world-bg.png) no-repeat bottom right #000000;
   border-radius: 1.25rem;
   border: 0;
   padding: 2.5rem 3.125rem;
@@ -11072,7 +11072,7 @@ figure.table table {
     transition: all 0.5s ease-in-out; }
     .card.pkg-card .pkg-header:before {
       content: "";
-      background: url(../../assets/images/pkg-bg.png) no-repeat center;
+      background: url(../../images/pkg-bg.png) no-repeat center;
       background-size: 100%;
       width: 100%;
       height: 100%;
@@ -11708,15 +11708,15 @@ ul.social {
   .inner-banner.whyicmarket-sec {
     background-image: url("../images/single_market_page/forex-trading-banner.jpg"); }
   .inner-banner.rangemarket-sec {
-    background-image: url("../../assets/images/single_market_page/banner1.png"); }
+    background-image: url("../../images/single_market_page/banner1.png"); }
   .inner-banner.spread-sec {
-    background-image: url("../../assets/images/single_market_page/spreads-banner.jpg"); }
+    background-image: url("../../images/single_market_page/spreads-banner.jpg"); }
   .inner-banner.live-sec {
-    background-image: url("../../assets/images/live-banner.png"); }
+    background-image: url("../../images/live-banner.png"); }
   .inner-banner.demo-sec {
-    background-image: url("../../assets/images/live-banner.png"); }
+    background-image: url("../../images/live-banner.png"); }
   .inner-banner.funding-sec {
-    background-image: url("../../assets/images/single_market_page/account_funding_bg.jpg"); }
+    background-image: url("../../images/single_market_page/account_funding_bg.jpg"); }
   .inner-banner.withdrawal-sec {
     background-image: url("../images/single_market_page/withdrawal_header_bg.jpg"); }
   .inner-banner.metatrader4-sec {
@@ -11726,97 +11726,97 @@ ul.social {
   .inner-banner.webtrader-sec {
     background-image: url("../images/single_market_page/mt4-banner.jpg"); }
   .inner-banner.android-sec {
-    background-image: url("../../assets/images/single_market_page/mt-android-banner.jpg"); }
+    background-image: url("../../images/single_market_page/mt-android-banner.jpg"); }
   .inner-banner.calgo-sec {
-    background-image: url("../../assets/images/single_market_page/ctrader-windows-banner.jpg"); }
+    background-image: url("../../images/single_market_page/ctrader-windows-banner.jpg"); }
   .inner-banner.copytrading-sec {
-    background-image: url("../../assets/images/single_market_page/ctrader-copy-trading-banner.png"); }
+    background-image: url("../../images/single_market_page/ctrader-copy-trading-banner.png"); }
   .inner-banner.ios-sec {
-    background-image: url("../../assets/images/single_market_page/mt-ios-banner.jpg"); }
+    background-image: url("../../images/single_market_page/mt-ios-banner.jpg"); }
   .inner-banner.cwindows-sec {
-    background-image: url("../../assets/images/single_market_page/ctrader-windows-banner.jpg"); }
+    background-image: url("../../images/single_market_page/ctrader-windows-banner.jpg"); }
   .inner-banner.myfxbook-sec {
-    background-image: url("../../assets/images/single_market_page/myfxbook-autotrade-banner.jpg"); }
+    background-image: url("../../images/single_market_page/myfxbook-autotrade-banner.jpg"); }
   .inner-banner.zulutrade-sec {
-    background-image: url("../../assets/images/single_market_page/zulutrade-banner.jpg"); }
+    background-image: url("../../images/single_market_page/zulutrade-banner.jpg"); }
   .inner-banner.overview-sec {
-    background-image: url("../../assets/images/single_market_page/overview_header_bg.jpg"); }
+    background-image: url("../../images/single_market_page/overview_header_bg.jpg"); }
   .inner-banner.rawspread-sec {
-    background-image: url("../../assets/images/single_market_page/overview_header_bg.jpg"); }
+    background-image: url("../../images/single_market_page/overview_header_bg.jpg"); }
   .inner-banner.ctraderraw-sec {
-    background-image: url("../../assets/images/ctrader-ecn-banner-bg.jpg"); }
+    background-image: url("../../images/ctrader-ecn-banner-bg.jpg"); }
   .inner-banner.standardaccount-sec {
-    background-image: url("../../assets/images/single_market_page/overview_header_bg.jpg"); }
+    background-image: url("../../images/single_market_page/overview_header_bg.jpg"); }
   .inner-banner.standardaccount-sec {
-    background-image: url("../../assets/images/single_market_page/overview_header_bg.jpg"); }
+    background-image: url("../../images/single_market_page/overview_header_bg.jpg"); }
   .inner-banner.islamicAcc-sec {
-    background-image: url("../../assets/images/single_market_page/overview_header_bg.jpg"); }
+    background-image: url("../../images/single_market_page/overview_header_bg.jpg"); }
   .inner-banner.forex-sec {
-    background-image: url("../../assets/images/single_market_page/banner1.png"); }
+    background-image: url("../../images/single_market_page/banner1.png"); }
   .inner-banner.commodities-sec {
-    background-image: url("../../assets/images/single_market_page/banner2.png"); }
+    background-image: url("../../images/single_market_page/banner2.png"); }
   .inner-banner.indices-sec {
-    background-image: url("../../assets/images/single_market_page/banner1.png"); }
+    background-image: url("../../images/single_market_page/banner1.png"); }
   .inner-banner.bond-sec {
-    background-image: url("../../assets/images/single_market_page/banner2.png"); }
+    background-image: url("../../images/single_market_page/banner2.png"); }
   .inner-banner.digitalcurrency-sec {
-    background-image: url("../../assets/images/single_market_page/btc-banner.png"); }
+    background-image: url("../../images/single_market_page/btc-banner.png"); }
   .inner-banner.stock-sec {
-    background-image: url("../../assets/images/single_market_page/banner2.png"); }
+    background-image: url("../../images/single_market_page/banner2.png"); }
   .inner-banner.future-sec {
-    background-image: url("../../assets/images/single_market_page/banner2.png"); }
+    background-image: url("../../images/single_market_page/banner2.png"); }
   .inner-banner.trading-condition-sec {
-    background-image: url("../../assets/images/single_market_page/trading-conditions-banner.jpg"); }
+    background-image: url("../../images/single_market_page/trading-conditions-banner.jpg"); }
   .inner-banner.trading-hour-sec {
-    background-image: url("../../assets/images/single_market_page/trading-hours-banner.jpg"); }
+    background-image: url("../../images/single_market_page/trading-hours-banner.jpg"); }
   .inner-banner.swap-rate-sec {
-    background-image: url("../../assets/images/single_market_page/trading-conditions-banner.jpg"); }
+    background-image: url("../../images/single_market_page/trading-conditions-banner.jpg"); }
   .inner-banner.virtual-private-sec {
     background-image: url("../images/single_market_page/virtual-private-server-banner.jpg"); }
   .inner-banner.trading-server-sec {
     background-image: url("../images/single_market_page/virtual-private-server-banner.jpg"); }
   .inner-banner.mt4-advanced-sec {
-    background-image: url("../../assets/images/single_market_page/api-trading-banner.jpg"); }
+    background-image: url("../../images/single_market_page/api-trading-banner.jpg"); }
   .inner-banner.about-sec {
-    background-image: url("../../assets/images/single_market_page/about-us-banner.png"); }
+    background-image: url("../../images/single_market_page/about-us-banner.png"); }
   .inner-banner.contact-sec {
-    background-image: url("../../assets/images/single_market_page/contact-us-banner.jpg"); }
+    background-image: url("../../images/single_market_page/contact-us-banner.jpg"); }
   .inner-banner.regulation-sec {
-    background-image: url("../../assets/images/single_market_page/regulation-banner.png"); }
+    background-image: url("../../images/single_market_page/regulation-banner.png"); }
   .inner-banner.white-label-partnerships-sec {
-    background-image: url("../../assets/images/single_market_page/white-label-partnerships-banner.jpg"); }
+    background-image: url("../../images/single_market_page/white-label-partnerships-banner.jpg"); }
   .inner-banner.trading-api-sec {
-    background-image: url("../../assets/images/single_market_page/trading-api-banner.jpg"); }
+    background-image: url("../../images/single_market_page/trading-api-banner.jpg"); }
   .inner-banner.liquidity-provision-sec {
-    background-image: url("../../assets/images/single_market_page/liquidity-provision-banner.jpg"); }
+    background-image: url("../../images/single_market_page/liquidity-provision-banner.jpg"); }
   .inner-banner.insurance-sec {
-    background-image: url("../../assets/images/insurance/insurancebanner.png"); }
+    background-image: url("../../images/insurance/insurancebanner.png"); }
   .inner-banner.career-sec {
-    background-image: url("../../assets/images/single_market_page/careers-banner.jpg"); }
+    background-image: url("../../images/single_market_page/careers-banner.jpg"); }
   .inner-banner.edu-overview-sec {
-    background-image: url("../../assets/images/single_market_page/education-overview-banner.jpg"); }
+    background-image: url("../../images/single_market_page/education-overview-banner.jpg"); }
   .inner-banner.adv-forex-sec {
-    background-image: url("../../assets/images/single_market_page/advantages-of-forex-banner.jpg"); }
+    background-image: url("../../images/single_market_page/advantages-of-forex-banner.jpg"); }
   .inner-banner.adv-cfds-sec {
-    background-image: url("../../assets/images/single_market_page/advantages-of-cfds-banner.jpg"); }
+    background-image: url("../../images/single_market_page/advantages-of-cfds-banner.jpg"); }
   .inner-banner.webtv-sec {
-    background-image: url("../../assets/images/single_market_page/advantages-of-cfds-banner.jpg"); }
+    background-image: url("../../images/single_market_page/advantages-of-cfds-banner.jpg"); }
   .inner-banner.videotutorial-sec {
-    background-image: url("../../assets/images/single_market_page/advantages-of-cfds-banner.jpg"); }
+    background-image: url("../../images/single_market_page/advantages-of-cfds-banner.jpg"); }
   .inner-banner.teamviewer-sec {
-    background-image: url("../../assets/images/teamviewer/homebanner.png"); }
+    background-image: url("../../images/teamviewer/homebanner.png"); }
   .inner-banner.forex-glossary-sec {
-    background-image: url("../../assets/images/single_market_page/glossary-banner.jpg"); }
+    background-image: url("../../images/single_market_page/glossary-banner.jpg"); }
   .inner-banner.ecnomic-calendr-sec {
-    background-image: url("../../assets/images/single_market_page/economic-calendar-banner.jpg"); }
+    background-image: url("../../images/single_market_page/economic-calendar-banner.jpg"); }
   .inner-banner.forex-calc-sec {
-    background-image: url("../../assets/images/single_market_page/forex-calculators-banner.png"); }
+    background-image: url("../../images/single_market_page/forex-calculators-banner.png"); }
   .inner-banner.helpcenter-sec {
-    background-image: url("../../assets/images/single_market_page/help-centre-banner.jpg"); }
+    background-image: url("../../images/single_market_page/help-centre-banner.jpg"); }
   .inner-banner.legal-documents-sec {
-    background-image: url("../../assets/images/single_market_page/legal-documents-banner.jpg"); }
+    background-image: url("../../images/single_market_page/legal-documents-banner.jpg"); }
   .inner-banner.social-trading-sec {
-    background-image: url("../../assets/images/social-trading-mobile-app/social-trading-banner.jpg");
+    background-image: url("../../images/social-trading-mobile-app/social-trading-banner.jpg");
     position: relative;
     z-index: 0; }
     .inner-banner.social-trading-sec:before {
@@ -11829,7 +11829,7 @@ ul.social {
       background: rgba(0, 0, 0, 0.75);
       z-index: -1; }
   .inner-banner.mobileapp-sec {
-    background-image: url("../../assets/images/mobile_trading_app/intro-background.png");
+    background-image: url("../../images/mobile_trading_app/intro-background.png");
     height: 46.875rem;
     background-position: bottom;
     background-color: #F3F3F3;
@@ -13062,7 +13062,7 @@ table.table tr:hover td {
         display: inline-block;
         width: 1.5rem;
         height: 0.75rem;
-        background: url(../../assets/images/increase.png);
+        background: url(../../images/increase.png);
         margin-right: 0.875rem; }
       .quotes-wrap .quote-widget.price-up .quote-widget__header-change::after {
         content: "";
@@ -13083,7 +13083,7 @@ table.table tr:hover td {
         display: inline-block;
         width: 1.5rem;
         height: 0.75rem;
-        background: url(../../assets/images/decrease.png);
+        background: url(../../images/decrease.png);
         margin-right: 0.875rem; }
       .quotes-wrap .quote-widget.price-down .quote-widget__header-change::after {
         content: "";
@@ -13222,7 +13222,7 @@ table.table tr:hover td {
       display: none; }
 
 .raw-chart-sec {
-  background: url("../../assets/images/raw-chart-bg.png") bottom left no-repeat #000000;
+  background: url("../../images/raw-chart-bg.png") bottom left no-repeat #000000;
   background-size: 100%;
   padding: 6.25rem 0; }
 
@@ -13679,18 +13679,18 @@ ul.currency-options {
     padding: 0 0 0 5rem;
     position: absolute; }
   .social-points .connect-icon {
-    background: url(../../assets/images/social-trading-mobile-app/connect-icon.png) no-repeat;
+    background: url(../../images/social-trading-mobile-app/connect-icon.png) no-repeat;
     background-size: 100%; }
   .social-points .trade-icon {
-    background: url(../../assets/images/social-trading-mobile-app/trade1-icon.png) no-repeat;
+    background: url(../../images/social-trading-mobile-app/trade1-icon.png) no-repeat;
     background-size: 100%; }
   .social-points .discover-icon {
-    background: url(../../assets/images/social-trading-mobile-app/discover-icon.png) no-repeat;
+    background: url(../../images/social-trading-mobile-app/discover-icon.png) no-repeat;
     background-size: 100%;
     left: initial;
     right: 0; }
   .social-points .platform-icon {
-    background: url(../../assets/images/social-trading-mobile-app/access-icon.png) no-repeat;
+    background: url(../../images/social-trading-mobile-app/access-icon.png) no-repeat;
     background-size: 100%; }
   .social-points .connect-list {
     top: -2.375rem;
