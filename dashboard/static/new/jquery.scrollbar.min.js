@@ -1,4 +1,4 @@
-/**
+﻿/**
  * jQuery CSS Customizable Scrollbar
  *
  * Copyright 2015, Yuriy Khabarov
