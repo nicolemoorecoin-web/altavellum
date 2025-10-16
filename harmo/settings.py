@@ -29,7 +29,8 @@ SECRET_KEY = os.getenv("SECRET_KEY", "dev-secret-key-not-for-production")
 
 # Add production domains via ALLOWED_HOSTS env, e.g.
 # ALLOWED_HOSTS="shipishly.com,www.shipishly.com"
-ALLOWED_HOSTS = ["127.0.0.1", "localhost"] + env_list("ALLOWED_HOSTS")
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "localhost,127.0.0.1,.onrender.com").split(",")
+
 
 # =========================
 # Installed apps
