@@ -39,3 +39,7 @@ Thumbs.db
 .vscode/
 
 **/static/assets/
+
+# legacy bundles we don't use
+**/static/new/
+
